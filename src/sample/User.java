@@ -8,16 +8,16 @@ public class User {
     private String degree;
     private String status;
     private String email;
-    private String position;
+    private String role;
 
-    public User(String userName, String password, String organization, String degree, String status, String email, String position) {
+    public User(String userName, String password, String organization, String degree, String status, String email, String role) {
         this.userName = userName;
         this.password = password;
         this.organization = organization;
         this.degree = degree;
         this.status = status;
         this.email = email;
-        this.position = position;
+        this.role = role;
     }
 
     public String getUserName() {
@@ -68,11 +68,11 @@ public class User {
         this.email = email;
     }
 
-    public String getPosition() {
-        return position;
+    public String getRole() {
+        return role;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setRole(String position) {
+        this.role = position;
     }
 }

@@ -2,10 +2,12 @@ package sample;
 
 public class Complaint {
 
+    private String complaintID;
     private User complainant;
     private User defendant;
 
-    public Complaint(User complainant, User defendant) {
+    public Complaint(String complaintID, User complainant, User defendant) {
+        this.complaintID = complaintID;
         this.complainant = complainant;
         this.defendant = defendant;
     }
@@ -25,4 +27,8 @@ public class Complaint {
     public void setDefendant(User defendant) {
         this.defendant = defendant;
     }
+
+    public String getComplaintID() { return complaintID; }
+
+    public void setComplaintID(String complaintID) { this.complaintID = complaintID; }
 }
