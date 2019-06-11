@@ -15,7 +15,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         FXMLLoader loader = new FXMLLoader();
-        Parent root = loader.load(getClass().getClassLoader().getResource("MainScreenForm.fxml").openStream());
+        Parent root = loader.load(getClass().getClassLoader().getResource("sample.fxml").openStream());
         View mainView = loader.getController();
 
         primaryStage.setTitle("Emer-Agency");
@@ -32,12 +32,6 @@ public class Main extends Application {
 
         controller.setView(mainView);
         controller.setModel(new Model());
-        controller.setAll();
-        controller.createUsersTable();
-        controller.createUpdatesTable();
-        controller.createEventsTable();
-        controller.createCategoriesTable();
-        controller.createComplainesTable();
         mainView.setCurrentStage(primaryStage);
         mainView.initializeListeners();
         primaryStage.show();
