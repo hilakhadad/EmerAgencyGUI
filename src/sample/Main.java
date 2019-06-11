@@ -1,18 +1,44 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+    public void start(Stage primaryStage) throws Exception {
+
+        FXMLLoader loader = new FXMLLoader();
+        Parent root = loader.load(getClass().getClassLoader().getResource("MainScreenForm.fxml").openStream());
+        View mainView = loader.getController();
+
+        primaryStage.setTitle("Emer-Agency");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.setResizable(false);
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                System.exit(0);
+            }
+        });
+
+        Controller controller = new Controller();
+
+        controller.setView(mainView);
+        controller.setModel(new Model());
+        controller.setAll();
+        controller.createUsersTable();
+        controller.createUpdatesTable();
+        controller.createEventsTable();
+        controller.createCategoriesTable();
+        controller.createComplainesTable();
+        mainView.setCurrentStage(primaryStage);
+        mainView.initializeListeners();
         primaryStage.show();
     }
 
