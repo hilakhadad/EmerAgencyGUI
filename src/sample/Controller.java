@@ -1,5 +1,7 @@
 package sample;
 
+import sample.Model.Model;
+
 public class Controller {
 
     View m_view;
