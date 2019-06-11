@@ -14,17 +14,4 @@ public class Controller {
     public void setModel(Model model){
         m_model = model;
     }
-
-    public void setAll(){}
-
-    public void createUsersTable(){}
-
-    public void createUpdatesTable(){}
-
-    public void createEventsTable(){}
-
-    public void createCategoriesTable(){}
-
-    public void createComplainesTable(){}
-
 }

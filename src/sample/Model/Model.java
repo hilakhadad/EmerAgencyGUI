@@ -1,6 +1,7 @@
 package sample.Model;
 
 import sample.DBConnection.DBConnection;
+import sample.User;
 
 import java.sql.*;
 
@@ -17,18 +18,18 @@ public class Model {
         createEventCategoryTable();
     }
 
-    public void insertUser() {
+    public void insertUser(User newUser) {
         String sql = "INSERT INTO Users(username, password,organization,rank,status,email,role) VALUES(?,?,?,?,?,?,?)";
         try {
             Connection conn = this.openConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, "alon");
-            pstmt.setString(2, "1234");
-            pstmt.setString(3, "Police");
-            pstmt.setInt(4, 3);
-            pstmt.setString(5, "Admin");
-            pstmt.setString(6, "a@a.com");
-            pstmt.setString(7, "role");
+            pstmt.setString(1, newUser.getUserName());
+            pstmt.setString(2, newUser.getPassword());
+            pstmt.setString(3, newUser.getOrganization());
+            pstmt.setString(4, newUser.getDegree());
+            pstmt.setString(5, newUser.getStatus());
+            pstmt.setString(6, newUser.getEmail());
+            pstmt.setString(7, newUser.getRole());
             pstmt.executeUpdate();
             this.closeConnection(conn);
         } catch (SQLException e) {

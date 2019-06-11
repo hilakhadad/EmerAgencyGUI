@@ -32,12 +32,6 @@ public class Main extends Application {
 
         controller.setView(mainView);
         controller.setModel(new Model());
-        controller.setAll();
-        controller.createUsersTable();
-        controller.createUpdatesTable();
-        controller.createEventsTable();
-        controller.createCategoriesTable();
-        controller.createComplainesTable();
         mainView.setCurrentStage(primaryStage);
         mainView.initializeListeners();
         primaryStage.show();
