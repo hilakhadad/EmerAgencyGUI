@@ -56,7 +56,7 @@ public class UpdateEventAController {
                         super.updateItem(t, bln);
 
                         if(t != null){
-                            setText(t.getTitle());
+                            setText(t.toString());
                         }else{
                             setText(null);
                         }

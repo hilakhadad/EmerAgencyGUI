@@ -9,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 
 public class Model {
     private DBConnection driver = new DBConnection();
@@ -100,7 +101,7 @@ public class Model {
                 String userCreated = resultSet.getString("user_created");
                 String title = resultSet.getString("title");
                 Update update = new Update(event_id,null,resultSet.getString("lastUpdate"),null,null,null);
-                Event event = new Event(event_id,title,null/*timeCreated*/,new User(userCreated,null,null,null,null,null,null),null,update,eventStatus);
+                Event event = new Event(event_id,title,timeCreated,new User(userCreated,null,null,null,null,null,null),null,update,eventStatus);
                 observableList.add(event);
             }
         } catch (SQLException e) {
@@ -113,7 +114,7 @@ public class Model {
     public boolean addUpdate(Event event, String description, Date date, User publisher){
         try {
             String sql = "INSERT INTO EventUpdates(event_id,timeCreated,description,username) VALUES(?,?,?,?);" +
-                    "UPDATE Events SET lastUpdate = '" + description + "' WHERE id = '" + event.getEventID() + "';";
+                    "UPDATE Events SET lastUpdate = '" + description + "' WHERE id = " + event.getEventID() + ";";
             Connection conn = this.openConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, event.getEventID());

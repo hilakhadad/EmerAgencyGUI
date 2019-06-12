@@ -1,6 +1,8 @@
 package Objects;
 
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.List;
 
@@ -82,6 +84,6 @@ public class Event {
 
     @Override
     public String toString() {
-        return title + date.toString();
+        return title + " " +date;
     }
 }
