@@ -4,7 +4,6 @@ import Models.Model;
 import Objects.Event;
 import Objects.User;
 import Views.View;
-import javafx.collections.ObservableList;
 
 import java.util.Date;
 
@@ -36,5 +35,9 @@ public class Controller {
 
     public ObservableList searchAllComplaints() {
         return m_model.searchAllComplaints();
+    }
+
+    public ObservableList<Event> getPossibleEvents(){
+        return m_model.showPossibleEventUpdate();
     }
 }

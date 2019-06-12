@@ -28,6 +28,7 @@ public class AFUWindowController {
             stage.setResizable(false);
             UpdateEventAController sceneController = loader.getController();
             sceneController.setController(controller);
+            sceneController.setChoiceBoxItems();
             stage.showAndWait();
 
         } catch (IOException e) {

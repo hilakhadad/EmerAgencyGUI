@@ -49,6 +49,7 @@ public class View{
             stage.setTitle("Hello Armed Force User");
             stage.setResizable(false);
             AFUWindowController sceneController = loader.getController();
+            controller.setLoggedUser(new User("hila","12345","Police","7","Active","h@h.com","armed force"));
             sceneController.setController(controller);
             stage.showAndWait();
 
