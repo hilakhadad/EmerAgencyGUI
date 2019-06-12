@@ -21,4 +21,8 @@ public class Controller {
     public User getLoggedUser(){
         return loggedUser;
     }
+
+    public void setLoggedUser(User loggedUser) {
+        this.loggedUser = loggedUser;
+    }
 }

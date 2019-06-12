@@ -99,7 +99,7 @@ public class Model {
                 String eventStatus = resultSet.getString("eventStatus");
                 String userCreated = resultSet.getString("userCreated");
                 String title = resultSet.getString("title");
-                Update update = new Update(null,null,resultSet.getString("lastUpdate"),null,null,null);
+                Update update = new Update(event_id,null,resultSet.getString("lastUpdate"),null,null,null);
                 Event event = new Event(event_id,title,timeCreated,new User(userCreated,null,null,null,null,null,null),null,update,eventStatus);
                 observableList.add(event);
             }
@@ -110,6 +110,25 @@ public class Model {
         return observableList;
     }
 
+    public boolean addUpdate(Event event, String description, Date date, User publisher){
+        try {
+            String sql = "INSERT INTO EventUpdates(event_id,timeCreated,description,username) VALUES(?,?,?,?);" +
+                    "UPDATE Events SET lastUpdate = '" + description + "' WHERE id = '" + event.getEventID() + "';";
+            Connection conn = this.openConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, event.getEventID());
+            pstmt.setDate(2, new java.sql.Date(date.getTime()));
+            pstmt.setString(3, description);
+            pstmt.setString(4, publisher.getUserName());
+            pstmt.executeUpdate();
+            this.closeConnection(conn);
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     //region createTables
     private void createUsersTable() {
