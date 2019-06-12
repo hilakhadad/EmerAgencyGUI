@@ -1,17 +1,19 @@
 package Objects;
 
+
+import java.util.Date;
 import java.util.List;
 
 public class Event {
 
     private String title;
-    private String date;
+    private Date date;
     private User creator;
     private List<Category> categories;
     private String firstUpdate;
     private String status;
 
-    public Event(String title, String date, User creator, List<Category> categories, String firstUpdate, String status) {
+    public Event(String title, Date date, User creator, List<Category> categories, String firstUpdate, String status) {
         this.title = title;
         this.date = date;
         this.creator = creator;
@@ -28,11 +30,11 @@ public class Event {
         this.title = title;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

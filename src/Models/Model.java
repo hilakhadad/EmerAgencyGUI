@@ -1,12 +1,18 @@
 package Models;
 
+import Controller.Controller;
+import Objects.Event;
 import Objects.User;
 import DBConnection.DBConnection;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.*;
 
 public class Model {
     private DBConnection driver = new DBConnection();
     private String dbUrl = "jdbc:sqlite:EmerAgency.db";
+    private Controller controller;
 
     public Model(){
         createUsersTable();
@@ -15,6 +21,11 @@ public class Model {
         createComplaintTable();
         createCategoryTable();
         createEventCategoryTable();
+        createResponsibleUserTable();
+    }
+
+    public void setController(Controller controller){
+        this.controller = controller;
     }
 
     public void insertUser(User newUser) {
@@ -53,8 +64,51 @@ public class Model {
 
     }
 
+    public ObservableList<Event> showPossibleEventUpdate(){
+        ResultSet resultSet;
+        ObservableList result = null;
+        String sql = "SELECT * " +
+                "FROM Events " +
+                "WHERE id IN (SELECT event_id " +
+                "FROM ResponsibleUser " +
+                "WHERE username IN (SELECT username " +
+                "FROM Users " +
+                "WHERE organization ='"+controller.getLoggedUser().getOrganization()+"'" +
+                "AND rank <= '" + controller.getLoggedUser().getDegree() +"'";
+        try {
+            Connection conn = this.openConnection();
+            Statement stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(sql);
+            result = this.convertEventUpdateResultsToObservableList(resultSet);
+            conn.close();
+        } catch (SQLException var7) {
+            System.out.println(var7.getMessage());
+        }
+
+        return result;
+    }
+
+    private ObservableList convertEventUpdateResultsToObservableList(ResultSet resultSet) {
+        ObservableList<Event> observableList = FXCollections.observableArrayList();
+
+        try {
+            while (resultSet.next()) {
+                int event_id = resultSet.getInt("id");
+                Date timeCreated = resultSet.getDate("timeCreated");
+                String eventStatus = resultSet.getString("eventStatus");
+                String userCreated = resultSet.getString("userCreated");
+                String title = resultSet.getString("title");
+                //Event event = new Event(title,timeCreated,)
+            }
+        } catch (SQLException var4) {
+            var4.printStackTrace();
+        }
+
+        return observableList;
+    }
+
     //region createTables
-    public void createUsersTable() {
+    private void createUsersTable() {
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS Users (\n"
                 + "	username text PRIMARY KEY,\n"
@@ -75,13 +129,14 @@ public class Model {
         }
     }
 
-    public void createEventTable(){
+    private void createEventTable(){
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS Events (\n"
                 + "	id INTEGER PRIMARY KEY,\n"
                 + "	timeCreated DATE NOT NULL,\n"
                 + "	eventStatus text NOT NULL,\n"
                 + "	user_created text NOT NULL,\n"
+                + "	firstUpdate text NOT NULL,\n"
                 + " title text NOT NULL\n"
                 + ");";
 
@@ -94,7 +149,7 @@ public class Model {
         }
     }
 
-    public void createUpdateTable(){
+    private void createUpdateTable(){
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS EventUpdates (\n"
                 + "	id INTEGER PRIMARY KEY,\n"
@@ -113,7 +168,7 @@ public class Model {
         }
     }
 
-    public void createCategoryTable(){
+    private void createCategoryTable(){
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS Categories (\n"
                 + "	category_name text NOT NULL PRIMARY KEY,\n"
@@ -129,7 +184,7 @@ public class Model {
         }
     }
 
-    public void createComplaintTable(){
+    private void createComplaintTable(){
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS Complaints (\n"
                 + " id INTEGER PRIMARY KEY,\n"
@@ -149,12 +204,29 @@ public class Model {
         }
     }
 
-    public void createEventCategoryTable(){
+    private void createEventCategoryTable(){
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS EventCategory (\n"
                 + " event_id INTEGER,\n"
                 + " category_name text NOT NULL,\n"
                 + " PRIMARY KEY (event_id, category_name)\n"
+                + ");";
+
+        try (Connection conn = DriverManager.getConnection(dbUrl);
+             Statement stmt = conn.createStatement()) {
+            // create a new table
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void createResponsibleUserTable(){
+        // SQL statement for creating a new table
+        String sql = "CREATE TABLE IF NOT EXISTS ResponsibleUser (\n"
+                + " event_id INTEGER,\n"
+                + " username text NOT NULL,\n"
+                + " PRIMARY KEY (event_id, username)\n"
                 + ");";
 
         try (Connection conn = DriverManager.getConnection(dbUrl);
@@ -171,7 +243,7 @@ public class Model {
     /**
      * open a connection to the database
      *
-     * @return
+     * @return connection
      */
     private Connection openConnection() {
         return driver.connect();
@@ -180,7 +252,7 @@ public class Model {
     /**
      * close connection to the database
      *
-     * @param connection
+     * @param connection connection
      */
     private void closeConnection(Connection connection) {
         try {
