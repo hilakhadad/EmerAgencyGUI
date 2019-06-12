@@ -45,10 +45,23 @@ public class Model {
             pstmt.setString(7, newUser.getRole());
             pstmt.executeUpdate();
             this.closeConnection(conn);
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
+    }
+
+    private void updateEventLastUpdate(String description, Event event) {
+        String sql = "UPDATE Events SET lastUpdate = '" + description + "' WHERE id = " + event.getEventID() + ";";
+        try {
+            Connection conn = this.openConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.executeUpdate();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void getUsers() {
@@ -114,8 +127,7 @@ public class Model {
 
     public boolean addUpdate(Event event, String description, Date date, User publisher){
         try {
-            String sql = "INSERT INTO EventUpdates(event_id,timeCreated,description,username) VALUES(?,?,?,?);" +
-                    "UPDATE Events SET lastUpdate = '" + description + "' WHERE id = " + event.getEventID() + ";";
+            String sql = "INSERT INTO EventUpdates(event_id,timeCreated,description,username) VALUES(?,?,?,?);";
             Connection conn = this.openConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, event.getEventID());
@@ -124,6 +136,7 @@ public class Model {
             pstmt.setString(4, publisher.getUserName());
             pstmt.executeUpdate();
             this.closeConnection(conn);
+            updateEventLastUpdate(description,event);
             return true;
 
         } catch (SQLException e) {

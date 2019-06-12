@@ -3,8 +3,8 @@ package Views;
 import Controller.Controller;
 import Objects.Event;
 import Objects.User;
-import javafx.collections.ObservableList;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.util.Date;
@@ -19,7 +19,7 @@ public class UpdateEventAController {
     }
 
     public void submitUpdate() {
-        boolean b = false;
+        boolean b;
         Alert a;
         if (cb_event.getValue() == null) {
             a = new Alert(Alert.AlertType.ERROR, "you must choose event");
@@ -36,6 +36,7 @@ public class UpdateEventAController {
             } else {
                 a = new Alert(Alert.AlertType.CONFIRMATION, "your update added to the event\n do you want to send anther update?");
                 a.show();
+                ((Stage)txt_updateDescription.getScene().getWindow()).close();
             }
         }
     }
