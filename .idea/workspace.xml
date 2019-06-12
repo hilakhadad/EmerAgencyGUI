@@ -127,8 +127,8 @@
       <file leaf-file-name="UpdateEventAController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Views/UpdateEventAController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="30" column="5" lean-forward="true" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
+            <state relative-caret-position="325">
+              <caret line="34" column="12" lean-forward="false" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="12" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#441#442#0" expanded="true" />
@@ -1491,7 +1491,14 @@
       <option name="project" value="LOCAL" />
       <updated>1560369933320</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="falling at add update">
+      <created>1560370320970</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1560370320971</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1581,7 +1588,8 @@
     <MESSAGE value="added new packeges and db" />
     <MESSAGE value="created tables" />
     <MESSAGE value="now you can add updates" />
-    <option name="LAST_COMMIT_MESSAGE" value="now you can add updates" />
+    <MESSAGE value="falling at add update" />
+    <option name="LAST_COMMIT_MESSAGE" value="falling at add update" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2087,8 +2095,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Views/UpdateEventAController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="30" column="5" lean-forward="true" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
+        <state relative-caret-position="325">
+          <caret line="34" column="12" lean-forward="false" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#441#442#0" expanded="true" />

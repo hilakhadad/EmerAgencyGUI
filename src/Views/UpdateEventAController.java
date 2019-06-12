@@ -21,13 +21,26 @@ public class UpdateEventAController {
         controller=c;
     }
 
-    public void submitUpdate(){
-        boolean b = addUpdate(cb_event.getValue(),txt_updateDescription.getText(),new Date(),controller.getLoggedUser());
-
-        if (!b)
-            new Alert(Alert.AlertType.ERROR,"you mast add content");
-
-        else new Alert(Alert.AlertType.CONFIRMATION,"your update added to the event\n do you want to send anther update?");
+    public void submitUpdate() {
+        boolean b = false;
+        Alert a;
+        if (cb_event.getValue() == null) {
+            a = new Alert(Alert.AlertType.ERROR, "you must choose event");
+            a.show();
+        } else if (txt_updateDescription.getText().equals("")) {
+            a = new Alert(Alert.AlertType.ERROR, "you must fill the update");
+            a.show();
+        } else {
+            b = addUpdate(cb_event.getValue(), txt_updateDescription.getText(), new Date(), controller.getLoggedUser());
+            
+            if (!b) {
+                a = new Alert(Alert.AlertType.ERROR, "something went wrong");
+                a.show();
+            } else {
+                a = new Alert(Alert.AlertType.CONFIRMATION, "your update added to the event\n do you want to send anther update?");
+                a.show();
+            }
+        }
     }
 
     private boolean addUpdate(Event event, String description, Date date, User publisher){
