@@ -1,8 +1,7 @@
-package sample.Model;
+package Models;
 
-import sample.DBConnection.DBConnection;
-import sample.User;
-
+import Objects.User;
+import DBConnection.DBConnection;
 import java.sql.*;
 
 public class Model {
@@ -175,7 +174,7 @@ public class Model {
      * @return
      */
     private Connection openConnection() {
-        return this.driver.connect();
+        return driver.connect();
     }
 
     /**

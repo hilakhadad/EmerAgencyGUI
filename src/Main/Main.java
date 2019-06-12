@@ -1,5 +1,8 @@
-package sample;
+package Main;
 
+import Controller.Controller;
+import Models.Model;
+import Views.View;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -7,7 +10,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import sample.Model.Model;
 
 public class Main extends Application {
 
@@ -29,7 +31,6 @@ public class Main extends Application {
         });
 
         Controller controller = new Controller();
-
         controller.setView(mainView);
         controller.setModel(new Model());
         mainView.setCurrentStage(primaryStage);

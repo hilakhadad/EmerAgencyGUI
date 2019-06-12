@@ -1,6 +1,7 @@
-package sample;
+package Controller;
 
-import sample.Model.Model;
+import Models.Model;
+import Views.View;
 
 public class Controller {
 
