@@ -2,7 +2,6 @@ package Views;
 
 import Controller.Controller;
 import Objects.Event;
-import Objects.Update;
 import Objects.User;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
@@ -30,7 +29,7 @@ public class UpdateEventAController {
             a.show();
         } else {
             b = addUpdate(cb_event.getValue(), txt_updateDescription.getText(), new Date(), controller.getLoggedUser());
-            
+
             if (!b) {
                 a = new Alert(Alert.AlertType.ERROR, "something went wrong");
                 a.show();
