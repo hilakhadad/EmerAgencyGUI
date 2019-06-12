@@ -117,7 +117,7 @@ public class Model {
             Connection conn = this.openConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, event.getEventID());
-            pstmt.setDate(2, new java.sql.Date(date.getTime()));
+            pstmt.setDate(2, date);
             pstmt.setString(3, description);
             pstmt.setString(4, publisher.getUserName());
             pstmt.executeUpdate();

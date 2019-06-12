@@ -1,8 +1,11 @@
 package Controller;
 
 import Models.Model;
+import Objects.Event;
 import Objects.User;
 import Views.View;
+
+import java.util.Date;
 
 public class Controller {
 
@@ -10,16 +13,20 @@ public class Controller {
     Model m_model;
     User loggedUser;
 
-    public void setView(View view){
+    public void setView(View view) {
         m_view = view;
     }
 
-    public void setModel(Model model){
+    public void setModel(Model model) {
         m_model = model;
     }
 
-    public User getLoggedUser(){
+    public User getLoggedUser() {
         return loggedUser;
+    }
+
+    public boolean addUpdate(Event event, String description, Date date, User publishe) {
+        return m_model.addUpdate( event,description , new java.sql.Date(date.getTime()) , publishe);
     }
 
     public void setLoggedUser(User loggedUser) {

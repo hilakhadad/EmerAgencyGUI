@@ -1,5 +1,6 @@
 package Views;
 
+import Controller.Controller;
 import Objects.User;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,7 +12,13 @@ import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
-public class View {
+public class View{
+
+    Controller controller;
+
+    public void setController(Controller c){
+        controller=c;
+    }
 
     public void handleLogInAsAFA(ActionEvent actionEvent) {
         FXMLLoader loader = new FXMLLoader();
@@ -23,6 +30,7 @@ public class View {
             stage.setTitle("Hello Armed Force Admin");
             stage.setResizable(false);
             AFAWindowController sceneController = loader.getController();
+            sceneController.setController(controller);
             stage.showAndWait();
 
         } catch (IOException e) {
@@ -41,6 +49,7 @@ public class View {
             stage.setTitle("Hello Armed Force User");
             stage.setResizable(false);
             AFUWindowController sceneController = loader.getController();
+            sceneController.setController(controller);
             stage.showAndWait();
 
         } catch (IOException e) {
@@ -59,6 +68,7 @@ public class View {
             stage.setTitle("Hello Center Admin");
             stage.setResizable(false);
             CAWindowController sceneController = loader.getController();
+            sceneController.setController(controller);
             stage.showAndWait();
 
         } catch (IOException e) {
