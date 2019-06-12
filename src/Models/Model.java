@@ -74,8 +74,8 @@ public class Model {
                 "FROM ResponsibleUser " +
                 "WHERE username IN (SELECT username " +
                 "FROM Users " +
-                "WHERE organization ='"+controller.getLoggedUser().getOrganization()+"'" +
-                "AND rank <= '" + controller.getLoggedUser().getDegree() +"'";
+                "WHERE organization ='"+controller.getLoggedUser().getOrganization()+"' " +
+                "AND rank <= " + controller.getLoggedUser().getDegree() + "))";
         try {
             Connection conn = this.openConnection();
             Statement stmt = conn.createStatement();
@@ -97,10 +97,10 @@ public class Model {
                 int event_id = resultSet.getInt("id");
                 Date timeCreated = resultSet.getDate("timeCreated");
                 String eventStatus = resultSet.getString("eventStatus");
-                String userCreated = resultSet.getString("userCreated");
+                String userCreated = resultSet.getString("user_created");
                 String title = resultSet.getString("title");
                 Update update = new Update(event_id,null,resultSet.getString("lastUpdate"),null,null,null);
-                Event event = new Event(event_id,title,timeCreated,new User(userCreated,null,null,null,null,null,null),null,update,eventStatus);
+                Event event = new Event(event_id,title,null/*timeCreated*/,new User(userCreated,null,null,null,null,null,null),null,update,eventStatus);
                 observableList.add(event);
             }
         } catch (SQLException e) {

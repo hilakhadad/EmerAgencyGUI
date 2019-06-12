@@ -6,11 +6,12 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 
+<?import javafx.scene.control.ComboBox?>
 <AnchorPane prefHeight="329.0" prefWidth="392.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="Views.UpdateEventAController">
     <children>
         <Button layoutX="136.0" layoutY="275.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="121.0" style="-fx-background-color: #f2dd68" text="Submit" onAction="#submitUpdate"/>
       <Label layoutX="23.0" layoutY="21.0" text="Choose your event" />
-      <ChoiceBox layoutX="23.0" layoutY="40.0" prefHeight="25.0" prefWidth="343.0" fx:id="cb_event"/>
+      <ComboBox layoutX="23.0" layoutY="40.0" prefHeight="25.0" prefWidth="343.0" fx:id="cb_event"/>
       <Label layoutX="23.0" layoutY="81.0" text="What is your update?" />
       <TextArea layoutX="23.0" layoutY="105.0" prefHeight="160.0" prefWidth="343.0" fx:id="txt_updateDescription"/>
     </children>

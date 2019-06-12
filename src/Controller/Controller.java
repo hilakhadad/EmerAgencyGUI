@@ -4,6 +4,7 @@ import Models.Model;
 import Objects.Event;
 import Objects.User;
 import Views.View;
+import javafx.collections.ObservableList;
 
 import java.util.Date;
 
@@ -31,5 +32,9 @@ public class Controller {
 
     public void setLoggedUser(User loggedUser) {
         this.loggedUser = loggedUser;
+    }
+
+    public ObservableList<Event> getPossibleEvents(){
+        return m_model.showPossibleEventUpdate();
     }
 }
