@@ -2,12 +2,14 @@ package Models;
 
 import Controller.Controller;
 import Objects.Event;
+import Objects.Update;
 import Objects.User;
 import DBConnection.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
+import java.util.LinkedList;
 
 public class Model {
     private DBConnection driver = new DBConnection();
@@ -81,8 +83,8 @@ public class Model {
             resultSet = stmt.executeQuery(sql);
             result = this.convertEventUpdateResultsToObservableList(resultSet);
             conn.close();
-        } catch (SQLException var7) {
-            System.out.println(var7.getMessage());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
 
         return result;
@@ -98,14 +100,17 @@ public class Model {
                 String eventStatus = resultSet.getString("eventStatus");
                 String userCreated = resultSet.getString("userCreated");
                 String title = resultSet.getString("title");
-                //Event event = new Event(title,timeCreated,)
+                Update update = new Update(null,null,resultSet.getString("lastUpdate"),null,null);
+                Event event = new Event(event_id,title,timeCreated,new User(userCreated,null,null,null,null,null,null),null,update,eventStatus);
+                observableList.add(event);
             }
-        } catch (SQLException var4) {
-            var4.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         return observableList;
     }
+
 
     //region createTables
     private void createUsersTable() {
@@ -133,10 +138,10 @@ public class Model {
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS Events (\n"
                 + "	id INTEGER PRIMARY KEY,\n"
-                + "	timeCreated DATE NOT NULL,\n"
+                + "	timeCreated DATETIME NOT NULL,\n"
                 + "	eventStatus text NOT NULL,\n"
                 + "	user_created text NOT NULL,\n"
-                + "	firstUpdate text NOT NULL,\n"
+                + "	lastUpdate text NOT NULL,\n"
                 + " title text NOT NULL\n"
                 + ");";
 
@@ -153,7 +158,7 @@ public class Model {
         // SQL statement for creating a new table
         String sql = "CREATE TABLE IF NOT EXISTS EventUpdates (\n"
                 + "	id INTEGER PRIMARY KEY,\n"
-                + "	event_id DATE NOT NULL,\n"
+                + "	event_id DATETIME NOT NULL,\n"
                 + "	timeCreated DATE NOT NULL,\n"
                 + "	description text NOT NULL,\n"
                 + " username text NOT NULL\n"

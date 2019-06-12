@@ -5,21 +5,31 @@ import java.util.Date;
 import java.util.List;
 
 public class Event {
-
+    private int eventID;
     private String title;
     private Date date;
     private User creator;
     private List<Category> categories;
-    private String firstUpdate;
+    private Update firstUpdate;
     private String status;
 
-    public Event(String title, Date date, User creator, List<Category> categories, String firstUpdate, String status) {
+    public Event(int eventID, String title, Date date, User creator, List<Category> categories, Update firstUpdate, String status) {
+        this.eventID = eventID;
         this.title = title;
         this.date = date;
         this.creator = creator;
         this.categories = categories;
         this.firstUpdate = firstUpdate;
         this.status = status;
+    }
+
+
+    public int getEventID() {
+        return eventID;
+    }
+
+    public void setEventID(int eventID) {
+        this.eventID = eventID;
     }
 
     public String getTitle() {
@@ -54,11 +64,11 @@ public class Event {
         this.categories = categories;
     }
 
-    public String getFirstUpdate() {
+    public Update getFirstUpdate() {
         return firstUpdate;
     }
 
-    public void setFirstUpdate(String firstUpdate) {
+    public void setFirstUpdate(Update firstUpdate) {
         this.firstUpdate = firstUpdate;
     }
 
