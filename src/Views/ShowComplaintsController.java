@@ -9,7 +9,7 @@ import javafx.scene.control.TableView;
 
 public class ShowComplaintsController {
 
-    public TableView tv_ComplaintsTableView;
+    public TableView<Complaint> tv_ComplaintsTableView;
     public TableColumn<Complaint,String> tc_defendant,tc_complainant,tc_description,tc_status;
 
     Controller controller;
