@@ -13,11 +13,6 @@ import java.io.IOException;
 
 public class View {
 
-    public void setCurrentStage(Stage primaryStage){}
-
-    public void initializeListeners(){}
-
-
     public void handleLogInAsAFA(ActionEvent actionEvent) {
         FXMLLoader loader = new FXMLLoader();
         try {
@@ -35,8 +30,6 @@ public class View {
             e.printStackTrace();
         }
     }
-
-
 
     public void hendelLogInAsAFU(ActionEvent actionEvent) {
         FXMLLoader loader = new FXMLLoader();

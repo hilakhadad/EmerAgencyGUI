@@ -33,10 +33,7 @@ public class Main extends Application {
         Model model = new Model();
         Controller controller = new Controller();
         controller.setView(mainView);
-        controller.setModel(model);
-        model.setController(controller);
-        mainView.setCurrentStage(primaryStage);
-        mainView.initializeListeners();
+        controller.setModel(new Model());
         primaryStage.show();
     }
 
