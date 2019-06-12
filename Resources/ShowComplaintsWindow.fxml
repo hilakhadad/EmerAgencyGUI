@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="301.0" prefWidth="678.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Views.ShowComplaintsController">
+    <children>
+        <Button layoutX="279.0" layoutY="244.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="121.0" style="-fx-background-color: #f2dd68" text="Create category" />
+      <TableView layoutX="20.0" layoutY="27.0" prefHeight="200.0" prefWidth="638.0">
+        <columns>
+          <TableColumn prefWidth="113.0" text="complainant" />
+          <TableColumn prefWidth="95.0" text="defendant" />
+            <TableColumn prefWidth="354.0" text="description" />
+            <TableColumn prefWidth="74.0" text="Status" />
+        </columns>
+      </TableView>
+    </children>
+</AnchorPane>

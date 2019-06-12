@@ -1,6 +1,7 @@
 package Controller;
 
 import Models.Model;
+import Objects.Complaint;
 import Objects.Event;
 import Objects.User;
 import Views.View;
@@ -32,6 +33,10 @@ public class Controller {
 
     public void setLoggedUser(User loggedUser) {
         this.loggedUser = loggedUser;
+    }
+
+    public ObservableList<Complaint> searchAllComplaints() {
+        return m_model.searchAllComplaints();
     }
 
     public ObservableList<Event> getPossibleEvents(){

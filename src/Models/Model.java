@@ -1,6 +1,7 @@
 package Models;
 
 import Controller.Controller;
+import Objects.Complaint;
 import Objects.Event;
 import Objects.Update;
 import Objects.User;
@@ -285,6 +286,38 @@ public class Model {
             e.printStackTrace();
         }
 
+    }
+
+    public ObservableList<Complaint> searchAllComplaints() {
+        String sql = "SELECT * FROM Complaints WHERE organization = '" + controller.getLoggedUser().getOrganization() + "'";
+        ResultSet resultSet;
+        ObservableList result = null;
+        try {
+            Connection conn = this.openConnection();
+            Statement stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(sql);
+            result = this.convertComplaintResultsToObservableList(resultSet);
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    private ObservableList<Complaint> convertComplaintResultsToObservableList(ResultSet resultSet) {
+        ObservableList<Complaint> observableList = FXCollections.observableArrayList();
+        try {
+            while (resultSet.next()) {
+                User complainant = new User(resultSet.getString("complainant"), "", "", "", "", "", "");
+                User defendant = new User(resultSet.getString("defendant"), "", "", "", "", "", "");
+                String status = resultSet.getString("status");
+                String description = resultSet.getString("description");
+                observableList.add(new Complaint(description,complainant,defendant,status));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return observableList;
     }
     //endregion
 }
