@@ -31,6 +31,7 @@ public class View{
             stage.setResizable(false);
             AFAWindowController sceneController = loader.getController();
             sceneController.setController(controller);
+            controller.setLoggedUser(new User("hila","12345","Police","7","Active","h@h.com","armed force admin"));
             stage.showAndWait();
 
         } catch (IOException e) {
@@ -70,6 +71,7 @@ public class View{
             stage.setResizable(false);
             CAWindowController sceneController = loader.getController();
             sceneController.setController(controller);
+            controller.setLoggedUser(new User("hila","12345","Police","7","Active","h@h.com","center admin"));
             stage.showAndWait();
 
         } catch (IOException e) {

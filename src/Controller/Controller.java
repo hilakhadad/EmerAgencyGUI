@@ -1,9 +1,11 @@
 package Controller;
 
 import Models.Model;
+import Objects.Complaint;
 import Objects.Event;
 import Objects.User;
 import Views.View;
+import javafx.collections.ObservableList;
 
 import java.util.Date;
 
@@ -33,7 +35,7 @@ public class Controller {
         this.loggedUser = loggedUser;
     }
 
-    public ObservableList searchAllComplaints() {
+    public ObservableList<Complaint> searchAllComplaints() {
         return m_model.searchAllComplaints();
     }
 

@@ -19,7 +19,7 @@ public class ShowComplaintsController {
     }
 
     public void showResults(ObservableList<Complaint> searchResults) {
-        if (searchResults != null) {
+        if (searchResults != null && searchResults.size()>0) {
             tc_status.setCellValueFactory(cellData -> cellData.getValue().getSP_statusProperty());
             tc_defendant.setCellValueFactory(cellData -> cellData.getValue().getSP_defendantProperty());
             tc_complainant.setCellValueFactory(cellData -> cellData.getValue().getSP_complainantProperty());
