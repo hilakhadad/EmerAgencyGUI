@@ -2,15 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Resources/AFAWindow.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Resources/AFUWindow.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Resources/CAWindow.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Resources/LogInWindow.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Views/AFAWindowController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Views/AFUWindowController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Views/CAWindowController.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Resources/sample.fxml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Resources/AFAWindow.fxml" afterPath="$PROJECT_DIR$/Resources/AFAWindow.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Resources/AFUWindow.fxml" afterPath="$PROJECT_DIR$/Resources/AFUWindow.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Resources/CAWindow.fxml" afterPath="$PROJECT_DIR$/Resources/CAWindow.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Resources/LogInWindow.fxml" afterPath="$PROJECT_DIR$/Resources/LogInWindow.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main/Main.java" afterPath="$PROJECT_DIR$/src/Main/Main.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Views/View.java" afterPath="$PROJECT_DIR$/src/Views/View.java" />
     </list>
@@ -118,21 +114,21 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="88">
-              <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+            <state relative-caret-position="325">
+              <caret line="34" column="41" lean-forward="false" selection-start-line="34" selection-start-column="41" selection-end-line="34" selection-end-column="41" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LogInWindow.fxml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="LogInWindow.fxml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Resources/LogInWindow.fxml">
           <provider editor-type-id="JavaFX-Scene-Builder">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="10" column="114" lean-forward="false" selection-start-line="10" selection-start-column="114" selection-end-line="10" selection-end-column="114" />
+            <state relative-caret-position="308">
+              <caret line="20" column="87" lean-forward="false" selection-start-line="20" selection-start-column="50" selection-end-line="20" selection-end-column="87" />
               <folding />
             </state>
           </provider>
@@ -151,10 +147,13 @@
       <file leaf-file-name="View.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Views/View.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="83">
-              <caret line="55" column="9" lean-forward="true" selection-start-line="55" selection-start-column="9" selection-end-line="55" selection-end-column="9" />
+            <state relative-caret-position="286">
+              <caret line="13" column="19" lean-forward="false" selection-start-line="13" selection-start-column="19" selection-end-line="13" selection-end-column="19" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="method#handleLogInAsAFA#0;class#View#0" expanded="false" />
+                <element signature="method#hendelLogInAsAFU#0;class#View#0" expanded="false" />
+                <element signature="method#hendelLogInAsCA#0;class#View#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -166,8 +165,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
-              <caret line="5" column="79" lean-forward="false" selection-start-line="5" selection-start-column="79" selection-end-line="5" selection-end-column="79" />
+            <state relative-caret-position="154">
+              <caret line="7" column="84" lean-forward="false" selection-start-line="7" selection-start-column="84" selection-end-line="7" selection-end-column="84" />
               <folding />
             </state>
           </provider>
@@ -189,8 +188,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
-              <caret line="5" column="114" lean-forward="false" selection-start-line="5" selection-start-column="114" selection-end-line="5" selection-end-column="114" />
+            <state relative-caret-position="176">
+              <caret line="8" column="82" lean-forward="false" selection-start-line="8" selection-start-column="82" selection-end-line="8" selection-end-column="82" />
               <folding />
             </state>
           </provider>
@@ -206,14 +205,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CAWindow.fxml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CAWindow.fxml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Resources/CAWindow.fxml">
           <provider editor-type-id="JavaFX-Scene-Builder">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
-              <caret line="5" column="113" lean-forward="false" selection-start-line="5" selection-start-column="113" selection-end-line="5" selection-end-column="113" />
+            <state relative-caret-position="220">
+              <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -265,11 +264,12 @@
         <option value="$PROJECT_DIR$/src/AFAWindow.java" />
         <option value="$PROJECT_DIR$/src/AFAWindowController.java" />
         <option value="$PROJECT_DIR$/src/Views/AFAWindowController.java" />
+        <option value="$PROJECT_DIR$/src/Main/Main.java" />
         <option value="$PROJECT_DIR$/src/Views/View.java" />
+        <option value="$PROJECT_DIR$/Resources/LogInWindow.fxml" />
         <option value="$PROJECT_DIR$/Resources/AFAWindow.fxml" />
         <option value="$PROJECT_DIR$/Resources/AFUWindow.fxml" />
         <option value="$PROJECT_DIR$/Resources/CAWindow.fxml" />
-        <option value="$PROJECT_DIR$/Resources/LogInWindow.fxml" />
       </list>
     </option>
   </component>
@@ -385,11 +385,11 @@
     <property name="database.console.LAST_STATE" value="false" />
     <property name="dynamic.classpath" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../סמסטר ה/ניתוצ/vacation_for_u" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15487571" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
-    <property name="settings.editor.selected.configurable" value="database.data.csv.formats" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -725,7 +725,14 @@
       <option name="project" value="LOCAL" />
       <updated>1560277463792</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="4 new windows">
+      <created>1560364909819</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1560364909819</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -813,7 +820,8 @@
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <MESSAGE value="new view, main, conntroller" />
-    <option name="LAST_COMMIT_MESSAGE" value="new view, main, conntroller" />
+    <MESSAGE value="4 new windows" />
+    <option name="LAST_COMMIT_MESSAGE" value="4 new windows" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -824,7 +832,15 @@
           <properties />
           <option name="timeStamp" value="3" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/Views/View.java</url>
+          <line>15</line>
+          <properties class="Views.View" method="handleLogInAsAFA">
+            <option name="EMULATED" value="true" />
+          </properties>
+        </line-breakpoint>
       </breakpoints>
+      <option name="time" value="1" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -1042,14 +1058,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="88">
@@ -1074,24 +1082,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Views/View.java">
+    <entry file="file://$PROJECT_DIR$/src/Views/AFUWindowController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="83">
-          <caret line="55" column="9" lean-forward="true" selection-start-line="55" selection-start-column="9" selection-end-line="55" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="44">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Resources/AFAWindow.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/src/Main/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="5" column="79" lean-forward="false" selection-start-line="5" selection-start-column="79" selection-end-line="5" selection-end-column="79" />
+        <state relative-caret-position="325">
+          <caret line="34" column="41" lean-forward="false" selection-start-line="34" selection-start-column="41" selection-end-line="34" selection-end-column="41" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Views/View.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="13" column="19" lean-forward="false" selection-start-line="13" selection-start-column="19" selection-end-line="13" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#handleLogInAsAFA#0;class#View#0" expanded="false" />
+            <element signature="method#hendelLogInAsAFU#0;class#View#0" expanded="false" />
+            <element signature="method#hendelLogInAsCA#0;class#View#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1103,21 +1119,35 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Resources/LogInWindow.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="20" column="87" lean-forward="false" selection-start-line="20" selection-start-column="50" selection-end-line="20" selection-end-column="87" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Resources/AFAWindow.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="7" column="84" lean-forward="false" selection-start-line="7" selection-start-column="84" selection-end-line="7" selection-end-column="84" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Resources/AFUWindow.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="5" column="114" lean-forward="false" selection-start-line="5" selection-start-column="114" selection-end-line="5" selection-end-column="114" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Views/AFUWindowController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        <state relative-caret-position="176">
+          <caret line="8" column="82" lean-forward="false" selection-start-line="8" selection-start-column="82" selection-end-line="8" selection-end-column="82" />
           <folding />
         </state>
       </provider>
@@ -1127,19 +1157,8 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="5" column="113" lean-forward="false" selection-start-line="5" selection-start-column="113" selection-end-line="5" selection-end-column="113" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Resources/LogInWindow.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
-          <caret line="10" column="114" lean-forward="false" selection-start-line="10" selection-start-column="114" selection-end-line="10" selection-end-column="114" />
+          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding />
         </state>
       </provider>
