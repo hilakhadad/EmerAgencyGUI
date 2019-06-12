@@ -9,7 +9,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
-import java.util.LinkedList;
 
 public class Model {
     private DBConnection driver = new DBConnection();
@@ -100,7 +99,7 @@ public class Model {
                 String eventStatus = resultSet.getString("eventStatus");
                 String userCreated = resultSet.getString("userCreated");
                 String title = resultSet.getString("title");
-                Update update = new Update(null,null,resultSet.getString("lastUpdate"),null,null);
+                Update update = new Update(null,null,resultSet.getString("lastUpdate"),null,null,null);
                 Event event = new Event(event_id,title,timeCreated,new User(userCreated,null,null,null,null,null,null),null,update,eventStatus);
                 observableList.add(event);
             }

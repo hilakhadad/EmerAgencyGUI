@@ -8,12 +8,17 @@ public class Update {
     private String date;
     private User publisher;
 
-    public Update(String updateID, Event event, String description, String date, User publisher) {
+
+
+    private Update previousUpdate;
+
+    public Update(String updateID, Event event, String description, String date, User publisher, Update previousUpdate) {
         this.updateID = updateID;
         this.event = event;
         this.description = description;
         this.date = date;
         this.publisher = publisher;
+        this.previousUpdate = previousUpdate;
     }
 
     public String getUpdateID() {
@@ -54,5 +59,13 @@ public class Update {
 
     public void setPublisher(User publisher) {
         this.publisher = publisher;
+    }
+
+    public Update getPreviousUpdate() {
+        return previousUpdate;
+    }
+
+    public void setPreviousUpdate(Update previousUpdate) {
+        this.previousUpdate = previousUpdate;
     }
 }
