@@ -4,6 +4,7 @@ import Controller.Controller;
 import Objects.Event;
 import Objects.Update;
 import Objects.User;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextArea;
 
@@ -21,11 +22,16 @@ public class UpdateEventAController {
     }
 
     public void submitUpdate(){
-        addUpdate(cb_event.getValue(),txt_updateDescription.getText(),new Date(),controller.getLoggedUser());
+        boolean b = addUpdate(cb_event.getValue(),txt_updateDescription.getText(),new Date(),controller.getLoggedUser());
+
+        if (!b)
+            new Alert(Alert.AlertType.ERROR,"you mast add content");
+
+        else new Alert(Alert.AlertType.CONFIRMATION,"your update added to the event\n do you want to send anther update?");
     }
 
-    private boolean addUpdate(Event event, String description, Date date, User publishe){
-        return controller.addUpdate(event,description,date,publishe);
+    private boolean addUpdate(Event event, String description, Date date, User publisher){
+        return controller.addUpdate(event,description,date,publisher);
     }
 
 }
