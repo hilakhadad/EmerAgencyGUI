@@ -1,5 +1,8 @@
-package sample;
+package Main;
 
+import Controller.Controller;
+import Models.Model;
+import Views.View;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -7,7 +10,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import sample.Model.Model;
 
 public class Main extends Application {
 
@@ -15,7 +17,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         FXMLLoader loader = new FXMLLoader();
-        Parent root = loader.load(getClass().getClassLoader().getResource("sample.fxml").openStream());
+        Parent root = loader.load(getClass().getClassLoader().getResource("LogInWindow.fxml").openStream());
         View mainView = loader.getController();
 
         primaryStage.setTitle("Emer-Agency");
@@ -28,12 +30,12 @@ public class Main extends Application {
             }
         });
 
+        Model model = new Model();
         Controller controller = new Controller();
-
+        model.setController(controller);
+        mainView.setController(controller);
         controller.setView(mainView);
-        controller.setModel(new Model());
-        mainView.setCurrentStage(primaryStage);
-        mainView.initializeListeners();
+        controller.setModel(model);
         primaryStage.show();
     }
 

@@ -1,26 +1,30 @@
-package sample;
+package Objects;
+
+import java.util.Date;
 
 public class Update {
 
-    private String updateID;
+    private int updateID;
     private Event event;
     private String description;
-    private String date;
+    private Date date;
     private User publisher;
+    private Update previousUpdate;
 
-    public Update(String updateID, Event event, String description, String date, User publisher) {
+    public Update(int updateID, Event event, String description, Date date, User publisher, Update previousUpdate) {
         this.updateID = updateID;
         this.event = event;
         this.description = description;
         this.date = date;
         this.publisher = publisher;
+        this.previousUpdate = previousUpdate;
     }
 
-    public String getUpdateID() {
+    public int getUpdateID() {
         return updateID;
     }
 
-    public void setUpdateID(String updateID) {
+    public void setUpdateID(int updateID) {
         this.updateID = updateID;
     }
 
@@ -40,11 +44,11 @@ public class Update {
         this.description = description;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -54,5 +58,13 @@ public class Update {
 
     public void setPublisher(User publisher) {
         this.publisher = publisher;
+    }
+
+    public Update getPreviousUpdate() {
+        return previousUpdate;
+    }
+
+    public void setPreviousUpdate(Update previousUpdate) {
+        this.previousUpdate = previousUpdate;
     }
 }

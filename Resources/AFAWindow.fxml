@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="79.0" prefWidth="392.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="Views.AFAWindowController">
+    <children>
+        <Button layoutX="143.0" onAction="#hendleShowComplaints" layoutY="27.0" style="-fx-background-color: #f2dd68" mnemonicParsing="false" prefHeight="32.0" prefWidth="121.0" text="Show complaints" />
+    </children>
+</AnchorPane>
