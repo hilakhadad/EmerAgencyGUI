@@ -97,7 +97,24 @@ public class Model {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        return result;
+    }
 
+    public ObservableList<User> showUsers(){
+        ResultSet resultSet;
+        ObservableList result = null;
+        String sql = "SELECT * " +
+                "FROM Users";
+//                +"WHERE role = 'armed force man'";
+        try {
+            Connection conn = this.openConnection();
+            Statement stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(sql);
+            result = this.convertUsersResultsToObservableList(resultSet);
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
         return result;
     }
 
@@ -114,6 +131,23 @@ public class Model {
                 Update update = new Update(event_id,null,resultSet.getString("lastUpdate"),null,null,null);
                 Event event = new Event(event_id,title,timeCreated,new User(userCreated,null,null,null,null,null,null),null,update,eventStatus);
                 observableList.add(event);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return observableList;
+    }
+
+    private ObservableList convertUsersResultsToObservableList(ResultSet resultSet) {
+        ObservableList<User> observableList = FXCollections.observableArrayList();
+
+        try {
+            while (resultSet.next()) {
+                String userName = resultSet.getString("username");
+                String role = resultSet.getString("role");
+                User user = new User(userName, "", "police", "", "", "", role);
+                observableList.add(user);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -358,6 +392,11 @@ public class Model {
             pstmt.executeUpdate();
             this.closeConnection(conn);
         } catch (SQLException e) { e.printStackTrace(); return false; }
+        return true;
+    }
+
+    public boolean addComplaint(Complaint complaint) {
+        // fill
         return true;
     }
     //endregion

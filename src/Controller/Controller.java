@@ -47,4 +47,12 @@ public class Controller {
     public boolean createCategory(Category category) {
         return m_model.createCategory(category);
     }
+
+    public boolean addComplaint(Complaint complaint) {
+        return m_model.addComplaint(complaint);
+    }
+
+    public ObservableList<User> getAllUsers(){
+        return m_model.showUsers();
+    }
 }

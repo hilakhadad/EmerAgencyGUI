@@ -20,6 +20,16 @@ public class User {
         this.role = role;
     }
 
+    public User(String userName){
+        this.userName = userName;
+        this.password = "";
+        this.organization = "";
+        this.degree = "";
+        this.status = "";
+        this.email = "";
+        this.role = "";
+    }
+
     public String getUserName() {
         return userName;
     }
