@@ -1,6 +1,7 @@
 package Controller;
 
 import Models.Model;
+import Objects.Category;
 import Objects.Complaint;
 import Objects.Event;
 import Objects.User;
@@ -41,5 +42,9 @@ public class Controller {
 
     public ObservableList<Event> getPossibleEvents(){
         return m_model.showPossibleEventUpdate();
+    }
+
+    public boolean createCategory(Category category) {
+        return m_model.createCategory(category);
     }
 }

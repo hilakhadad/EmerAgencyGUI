@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="374.0" prefWidth="392.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Views.CreateCategoryController">
+    <children>
+        <Button layoutX="136.0" layoutY="328.0" mnemonicParsing="false" onAction="#addCategory" prefHeight="32.0" prefWidth="121.0" style="-fx-background-color: #f2dd68" text="Add" />
+        <Label layoutX="23.0" layoutY="21.0" text="Category Name:" />
+        <Label layoutX="23.0" layoutY="112.0" text="Description:" />
+        <TextArea fx:id="txt_categoryDescription" layoutX="23.0" layoutY="141.0" prefHeight="160.0" prefWidth="343.0" />
+      <TextArea fx:id="txt_categoryName" layoutX="23.0" layoutY="52.0" prefHeight="27.0" prefWidth="343.0" />
+    </children>
+</AnchorPane>

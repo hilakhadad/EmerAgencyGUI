@@ -1,10 +1,7 @@
 package Models;
 
 import Controller.Controller;
-import Objects.Complaint;
-import Objects.Event;
-import Objects.Update;
-import Objects.User;
+import Objects.*;
 import DBConnection.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -331,6 +328,37 @@ public class Model {
             e.printStackTrace();
         }
         return observableList;
+    }
+
+    public boolean createCategory(Category category) {
+//        String query = "SELECT COUNT(1) FROM Categories WHERE category_name = '" + category.getCategoryName() + "'";
+        String query = "SELECT Count(*) AS newCategoryName FROM Categories WHERE category_name = '" + category.getCategoryName() + "'";
+        ResultSet resultSet;
+        try {
+            Connection conn = this.openConnection();
+            Statement stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(query);
+            if (resultSet.getInt("newCategoryName") == 0) {
+                conn.close();
+                return addCategory(category);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private boolean addCategory(Category category) {
+        String query = "INSERT INTO Categories (category_name, description) VALUES (?,?)";
+        try {
+            Connection conn = this.openConnection();
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, category.getCategoryName());
+            pstmt.setString(2, category.getDescription());
+            pstmt.executeUpdate();
+            this.closeConnection(conn);
+        } catch (SQLException e) { e.printStackTrace(); return false; }
+        return true;
     }
     //endregion
 }
