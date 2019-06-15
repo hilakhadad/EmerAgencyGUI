@@ -3,7 +3,6 @@ package Views;
 import Controller.Controller;
 import Objects.Category;
 import Objects.Event;
-import Objects.User;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -29,8 +28,7 @@ public class CreateCategoryController {
             alert = new Alert(Alert.AlertType.ERROR, "you must fill the category description");
             alert.show();
         } else {
-            Category newCategory = new Category(txt_categoryName.getText(), txt_categoryDescription.getText());
-            if (!createCategory(newCategory)) {
+            if (!createCategory(txt_categoryName.getText(), txt_categoryDescription.getText())) {
                 alert = new Alert(Alert.AlertType.ERROR, "the category you try to add is already exist");
                 alert.show();
             } else {
@@ -41,7 +39,7 @@ public class CreateCategoryController {
         }
     }
 
-    private boolean createCategory(Category newCategory){
-        return controller.createCategory(newCategory);
+    private boolean createCategory(String cat_name, String cat_desc){
+        return controller.createCategory(cat_name,cat_desc);
     }
 }

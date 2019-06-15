@@ -1,36 +1,30 @@
 package Objects;
 
-import Objects.Users.User;
+import Objects.Users.RegularUser;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Complaint {
 
     private String description;
-//    private User complainant;
-//    private User defendant;
-    private String complainant;
-    private String defendant;
+    private RegularUser complainant;
+    private RegularUser defendant;
     private String status;
-//    private static int idAll=10;
-//    private int id;
 
     private StringProperty sp_description;
     private StringProperty sp_complainant;
     private StringProperty sp_defendant;
     private StringProperty sp_status;
 
-    public Complaint( String description, String complainant, String defendant,String status) {
+    public Complaint(String description, RegularUser complainant, RegularUser defendant, String status) {
         this.description = description;
         this.complainant = complainant;
         this.defendant = defendant;
         this.status = status;
-//        this.id = idAll;
         sp_description= new SimpleStringProperty(description);
-        sp_complainant= new SimpleStringProperty(complainant);
-        sp_defendant= new SimpleStringProperty(defendant);
+        sp_complainant= new SimpleStringProperty(complainant.getUserName());
+        sp_defendant= new SimpleStringProperty(defendant.getUserName());
         sp_status= new SimpleStringProperty(status);
-//        idAll++;
     }
 
 
@@ -39,19 +33,19 @@ public class Complaint {
         return status;
     }
 
-    public String getComplainant() {
+    public RegularUser getComplainant() {
         return complainant;
     }
 
-    public void setComplainant(String complainant) {
+    public void setComplainant(RegularUser complainant) {
         this.complainant = complainant;
     }
 
-    public String getDefendant() {
+    public RegularUser getDefendant() {
         return defendant;
     }
 
-    public void setDefendant(String defendant) {
+    public void setDefendant(RegularUser defendant) {
         this.defendant = defendant;
     }
 

@@ -7,8 +7,6 @@ import Objects.Event;
 import Objects.Update;
 import Objects.Users.RegularUser;
 import Objects.Users.TelephoneRecp;
-import Objects.Users.User;
-import Objects.*;
 import DBConnection.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -193,10 +191,10 @@ public class Model {
         return result;
     }
 
-    public ObservableList<String> showUsers(){
+    public ObservableList<RegularUser> showUsers(){
         ResultSet resultSet;
         ObservableList result = null;
-        String sql = "SELECT username " +
+        String sql = "SELECT * " +
                 "FROM Users";
 //                +"WHERE role = 'armed force man'";
         try {
@@ -232,13 +230,18 @@ public class Model {
         return observableList;
     }
 
-    private ObservableList convertUsersResultsToObservableList(ResultSet resultSet) {
-        ObservableList<String> observableList = FXCollections.observableArrayList();
+    private ObservableList<RegularUser> convertUsersResultsToObservableList(ResultSet resultSet) {
+        ObservableList<RegularUser> observableList = FXCollections.observableArrayList();
 
         try {
             while (resultSet.next()) {
-                String userName = resultSet.getString("username");
-                observableList.add(userName);
+                String username = resultSet.getString("username");
+                String password = resultSet.getString("password");
+                String organization = resultSet.getString("organization");
+                int rank = resultSet.getInt("rank");
+                String status = resultSet.getString("status");
+                String email = resultSet.getString("email");
+                observableList.add(new RegularUser(username, password, organization, rank, status, email));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -478,8 +481,8 @@ public class Model {
 
     }
 
-    public ObservableList<Complaint> searchAllComplaints() {
-        String sql = "SELECT * FROM Complaints WHERE organization = '" + controller.getLoggedUser().getOrganization() + "'";
+    public ObservableList<Complaint> searchAllComplaints(String org) {
+        String sql = "SELECT * FROM Complaints WHERE organization = '" + org + "'";
         ResultSet resultSet;
         ObservableList result = null;
         try {
@@ -498,8 +501,8 @@ public class Model {
         ObservableList<Complaint> observableList = FXCollections.observableArrayList();
         try {
             while (resultSet.next()) {
-                String complainant = resultSet.getString("complainant");
-                String defendant = resultSet.getString("defendant");
+                RegularUser complainant = getUser(resultSet.getString("complainant"));
+                RegularUser defendant = getUser(resultSet.getString("defendant"));
                 String status = resultSet.getString("status");
                 String description = resultSet.getString("description");
                 observableList.add(new Complaint(description,complainant,defendant,status));
@@ -547,8 +550,8 @@ public class Model {
             Connection conn = this.openConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
 //            pstmt.setInt(1, complaint.getId());
-            pstmt.setString(1, complaint.getComplainant());
-            pstmt.setString(2, complaint.getDefendant());
+            pstmt.setString(1, complaint.getComplainant().getUserName());
+            pstmt.setString(2, complaint.getDefendant().getUserName());
             pstmt.setString(3, complaint.getDescription());
             pstmt.setString(4, complaint.getStatus());
             pstmt.setString(5, controller.getLoggedUser().getOrganization());
@@ -556,6 +559,70 @@ public class Model {
             this.closeConnection(conn);
         } catch (SQLException e) { e.printStackTrace(); return false; }
         return true;
+    }
+
+    public List<Category> getAllCategories() {
+        String sql = "SELECT * FROM Categories";
+        ResultSet resultSet;
+        List<Category> result = null;
+        try {
+            Connection conn = this.openConnection();
+            Statement stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(sql);
+            result = this.getAllCategoriesList(resultSet);
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    private List<Category> getAllCategoriesList(ResultSet resultSet) {
+        List<Category> listC = new LinkedList<>();
+        try{
+            while(resultSet.next()) {
+                String category = resultSet.getString("category_name");
+                String description = resultSet.getString("description");
+                listC.add(new Category(category,description));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listC;
+    }
+
+    public List<RegularUser> getUsersFromOrg(String org) {
+        String sql = "SELECT * FROM Users WHERE organization = '" + org + "'";
+        ResultSet resultSet;
+        List<RegularUser> result = null;
+        try {
+            Connection conn = this.openConnection();
+            Statement stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(sql);
+            result = this.getUserList(resultSet);
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    private List<RegularUser> getUserList(ResultSet resultSet) {
+        List<RegularUser> list = new LinkedList<>();
+        try {
+            while (resultSet.next()) {
+                String username = resultSet.getString("username");
+                String password = resultSet.getString("password");
+                String organization = resultSet.getString("organization");
+                int rank = resultSet.getInt("rank");
+                String status = resultSet.getString("status");
+                String email = resultSet.getString("email");
+                list.add(new RegularUser(username, password, organization, rank, status, email));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
     //endregion
 }

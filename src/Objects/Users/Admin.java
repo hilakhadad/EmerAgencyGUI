@@ -10,8 +10,10 @@ import javafx.collections.ObservableList;
 import java.util.List;
 
 public class Admin extends User {
-    private Model m_model;
+    Model m_model;
     private List<Event> events;
+    private List<RegularUser> users;
+    private List<Complaint> complaints;
     private Controller controller;
 
     public Admin(String userName, String password, String organization) {
@@ -25,6 +27,8 @@ public class Admin extends User {
     public void setModel(Model model){
         this.m_model = model;
         events = m_model.getEventsOfOrg("Police");
+        users = m_model.getUsersFromOrg("Police");
+        complaints = m_model.searchAllComplaints("Police");
     }
 
     public ObservableList<Event> showAllPossibleEvents(){
@@ -32,7 +36,7 @@ public class Admin extends User {
     }
 
     public ObservableList<Complaint> searchAllComplaints() {
-        return m_model.searchAllComplaints();
+        return m_model.searchAllComplaints("Police");
     }
 
     public boolean createNewUpdate(int event_id, String update_desc){
@@ -51,4 +55,20 @@ public class Admin extends User {
         return null;
     }
 
+    public boolean addComplaint(String un_comp, String un_def, String desc) {
+        RegularUser complainant = getUser(un_comp);
+        RegularUser defendant = getUser(un_def);
+        Complaint c = new Complaint(desc,complainant,defendant,"waiting");
+        complaints.add(c);
+        m_model.addComplaint(c);
+        return true;
+    }
+
+    private RegularUser getUser(String username) {
+        for (RegularUser reg_user: users) {
+            if(reg_user.getUserName().equals(username))
+                return reg_user;
+        }
+        return null;
+    }
 }

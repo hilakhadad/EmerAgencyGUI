@@ -35,4 +35,9 @@ public class RegularUser extends User {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    @Override
+    public String toString() {
+        return getUserName();
+    }
 }

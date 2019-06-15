@@ -5,6 +5,8 @@ import Objects.Category;
 import Objects.Complaint;
 import Objects.Event;
 import Objects.Users.Admin;
+import Objects.Users.CenterAdmin;
+import Objects.Users.RegularUser;
 import Objects.Users.User;
 import Views.View;
 import javafx.collections.ObservableList;
@@ -14,8 +16,17 @@ public class Controller {
     private View m_view;
     private User loggedUser;
     private Admin policeAdmin;
+    private CenterAdmin centerAdmin;
 
     public Controller(){
+    }
+
+    public Admin getPoliceAdmin() {
+        return policeAdmin;
+    }
+
+    public CenterAdmin getCenterAdmin() {
+        return centerAdmin;
     }
 
     public void setView(View view) {
@@ -47,19 +58,24 @@ public class Controller {
         policeAdmin.setController(this);
     }
 
-    public boolean createCategory(Category category) {
-        return m_model.createCategory(category);
+    public void setCenterAdmin(CenterAdmin centerAdmin) {
+        this.centerAdmin = centerAdmin;
+        centerAdmin.setController(this);
     }
 
-    public boolean addComplaint(Complaint complaint) {
-        return m_model.addComplaint(complaint);
+    public boolean createCategory(String category_name, String category_desc) {
+        return centerAdmin.createNewCategory(category_name, category_desc);
+    }
+
+    public boolean addComplaint(String username_def, String desc) {
+        return policeAdmin.addComplaint(loggedUser.getUserName(), username_def,desc);
     }
 
 //    public ObservableList<User> getAllUsers(){
 //        return m_model.showUsers();
 //    }
 
-    public ObservableList<String> getAllUsers(){
-        return m_model.showUsers();
+    public ObservableList<RegularUser> getAllUsers(){
+        return centerAdmin.getAllUsers();
     }
 }

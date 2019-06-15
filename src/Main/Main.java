@@ -3,6 +3,7 @@ package Main;
 import Controller.Controller;
 import Models.Model;
 import Objects.Users.Admin;
+import Objects.Users.CenterAdmin;
 import Views.View;
 
 import javafx.application.Application;
@@ -34,11 +35,13 @@ public class Main extends Application {
 
         Model model = new Model();
         Controller controller = new Controller();
-        Admin policeAdmin = new Admin("policeAdmin","Admin","Police");
-        policeAdmin.setModel(model);
-
+        Admin policeAdmin = new Admin("policeAdmin","1234","Police");
+        CenterAdmin centerAdmin = new CenterAdmin("centerAdmin", "1234","Center");
         controller.setPoliceAdmin(policeAdmin);
+        controller.setCenterAdmin(centerAdmin);
         model.setController(controller);
+        policeAdmin.setModel(model);
+        centerAdmin.setModel(model);
         mainView.setController(controller);
         controller.setView(mainView);
         primaryStage.show();

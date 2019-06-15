@@ -7,7 +7,6 @@
 
 <AnchorPane prefHeight="301.0" prefWidth="678.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="Views.ShowComplaintsController">
     <children>
-        <Button layoutX="279.0" layoutY="244.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="121.0" style="-fx-background-color: #f2dd68" text="Create category" />
       <TableView layoutX="20.0" layoutY="27.0" prefHeight="200.0" prefWidth="638.0" fx:id="tv_ComplaintsTableView">
         <columns>
           <TableColumn prefWidth="113.0" text="complainant" fx:id="tc_complainant"/>

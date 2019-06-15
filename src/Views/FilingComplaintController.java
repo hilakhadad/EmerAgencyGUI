@@ -1,20 +1,17 @@
 package Views;
 
 import Controller.Controller;
-import Objects.Complaint;
-import Objects.Event;
-import Objects.User;
+import Objects.Users.RegularUser;
+import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-import java.util.Date;
-
 public class FilingComplaintController {
 
-    public ComboBox<String> cb_users;
+    public ComboBox<RegularUser> cb_users;
     public TextArea txt_complaintDescription;
-    Controller controller;
+    private Controller controller;
 
     public void setController(Controller c){
         controller=c;
@@ -29,11 +26,9 @@ public class FilingComplaintController {
             alert = new Alert(Alert.AlertType.ERROR, "you must fill the complaint details");
             alert.show();
         } else {
-            String defendant = cb_users.getValue();
-            String complaint = controller.getLoggedUser().getUserName();
-            Complaint newComplaint = new Complaint(txt_complaintDescription.getText(), complaint, defendant, "waiting");
-            if (!addComplaint(newComplaint)){
-                alert = new Alert(Alert.AlertType.ERROR, "something went wrong");
+            String defendant = cb_users.getValue().getUserName();
+            if (!addComplaint(defendant,txt_complaintDescription.getText())){
+                alert = new Alert(Alert.AlertType.ERROR, "Category already exists");
                 alert.show();
             } else {
                 alert = new Alert(Alert.AlertType.CONFIRMATION, "your complaint added successfully and waiting to confirmation");
@@ -43,28 +38,41 @@ public class FilingComplaintController {
         }
     }
 
-    private boolean addComplaint(Complaint complaint){
-        return controller.addComplaint(complaint);
+    private boolean addComplaint(String username_def, String desc){
+        return controller.addComplaint(username_def, desc);
     }
 
     public void setChoiceBoxItems() {
-        cb_users.setItems(controller.getAllUsers());
-//        cb_users.setCellFactory(new Callback<ListView<User>, ListCell<User>>() {
-//            @Override
-//            public ListCell<User> call(ListView<User> param) {
-//                final ListCell<User> cell = new ListCell<User>(){
-//                    @Override
-//                    protected void updateItem(User u, boolean bln) {
-//                        super.updateItem(u, bln);
-//                        if(u != null){
-//                            setText(u.getUserName());
-//                        }else{
-//                            setText(null);
-//                        }
-//                    }
-//                };
-//                return cell;
-//            }
-//        });
+        ObservableList<RegularUser> list = controller.getAllUsers();
+        list = removeUserFromList(list);
+        cb_users.setItems(list);
+        cb_users.setCellFactory(new Callback<ListView<RegularUser>, ListCell<RegularUser>>() {
+           @Override
+           public ListCell<RegularUser> call(ListView<RegularUser> param) {
+               final ListCell<RegularUser> cell = new ListCell<RegularUser>(){
+                   @Override
+                   protected void updateItem(RegularUser u, boolean bln) {
+                       super.updateItem(u, bln);
+                       if(u != null){
+                           setText(u.getUserName());
+                       }else{
+                           setText(null);
+                       }
+                   }
+               };
+               return cell;
+           }
+       });
+    }
+
+    private ObservableList<RegularUser> removeUserFromList(ObservableList<RegularUser> list) {
+        int idx = -1;
+        for (int i = 0; i < list.size(); i++) {
+            if(list.get(i).getUserName().equals(controller.getLoggedUser().getUserName()))
+                idx = i;
+        }
+        if(idx!=-1)
+            list.remove(idx);
+        return list;
     }
 }
