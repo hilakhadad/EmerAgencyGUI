@@ -8,6 +8,7 @@ import Objects.Update;
 import Objects.Users.RegularUser;
 import Objects.Users.TelephoneRecp;
 import Objects.Users.User;
+import Objects.*;
 import DBConnection.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -189,7 +190,24 @@ public class Model {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        return result;
+    }
 
+    public ObservableList<String> showUsers(){
+        ResultSet resultSet;
+        ObservableList result = null;
+        String sql = "SELECT username " +
+                "FROM Users";
+//                +"WHERE role = 'armed force man'";
+        try {
+            Connection conn = this.openConnection();
+            Statement stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(sql);
+            result = this.convertUsersResultsToObservableList(resultSet);
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
         return result;
     }
 
@@ -206,6 +224,21 @@ public class Model {
                 Update update = new Update(null,resultSet.getString("lastUpdate"),null,null,null);
                 Event event = new Event(event_id,title,timeCreated,getTeleRecp(userCreated),null,update,eventStatus);
                 observableList.add(event);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return observableList;
+    }
+
+    private ObservableList convertUsersResultsToObservableList(ResultSet resultSet) {
+        ObservableList<String> observableList = FXCollections.observableArrayList();
+
+        try {
+            while (resultSet.next()) {
+                String userName = resultSet.getString("username");
+                observableList.add(userName);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -235,37 +268,6 @@ public class Model {
     }
 
 
-    public ObservableList<Complaint> searchAllComplaints() {
-        String sql = "SELECT * FROM Complaints WHERE organization = '" + controller.getLoggedUser().getOrganization() + "'";
-        ResultSet resultSet;
-        ObservableList result = null;
-        try {
-            Connection conn = this.openConnection();
-            Statement stmt = conn.createStatement();
-            resultSet = stmt.executeQuery(sql);
-            result = this.convertComplaintResultsToObservableList(resultSet);
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    private ObservableList<Complaint> convertComplaintResultsToObservableList(ResultSet resultSet) {
-        ObservableList<Complaint> observableList = FXCollections.observableArrayList();
-        try {
-            while (resultSet.next()) {
-                User complainant = getUser(resultSet.getString("complainant"));
-                User defendant = getUser(resultSet.getString("defendant"));
-                String status = resultSet.getString("status");
-                String description = resultSet.getString("description");
-                observableList.add(new Complaint(description,complainant,defendant,status));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return observableList;
-    }
 
     public List<Event> getEventsOfOrg(String org) {
         String sql = "SELECT * FROM Events WHERE id IN(SELECT event_id FROM ResponsibleUser WHERE username IN(SELECT username FROM Users WHERE organization= '" + org + "'))";
@@ -476,5 +478,84 @@ public class Model {
 
     }
 
+    public ObservableList<Complaint> searchAllComplaints() {
+        String sql = "SELECT * FROM Complaints WHERE organization = '" + controller.getLoggedUser().getOrganization() + "'";
+        ResultSet resultSet;
+        ObservableList result = null;
+        try {
+            Connection conn = this.openConnection();
+            Statement stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(sql);
+            result = this.convertComplaintResultsToObservableList(resultSet);
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    private ObservableList<Complaint> convertComplaintResultsToObservableList(ResultSet resultSet) {
+        ObservableList<Complaint> observableList = FXCollections.observableArrayList();
+        try {
+            while (resultSet.next()) {
+                String complainant = resultSet.getString("complainant");
+                String defendant = resultSet.getString("defendant");
+                String status = resultSet.getString("status");
+                String description = resultSet.getString("description");
+                observableList.add(new Complaint(description,complainant,defendant,status));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return observableList;
+    }
+
+    public boolean createCategory(Category category) {
+//        String query = "SELECT COUNT(1) FROM Categories WHERE category_name = '" + category.getCategoryName() + "'";
+        String query = "SELECT Count(*) AS newCategoryName FROM Categories WHERE category_name = '" + category.getCategoryName() + "'";
+        ResultSet resultSet;
+        try {
+            Connection conn = this.openConnection();
+            Statement stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(query);
+            if (resultSet.getInt("newCategoryName") == 0) {
+                conn.close();
+                return addCategory(category);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private boolean addCategory(Category category) {
+        String query = "INSERT INTO Categories (category_name, description) VALUES (?,?)";
+        try {
+            Connection conn = this.openConnection();
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, category.getCategoryName());
+            pstmt.setString(2, category.getDescription());
+            pstmt.executeUpdate();
+            this.closeConnection(conn);
+        } catch (SQLException e) { e.printStackTrace(); return false; }
+        return true;
+    }
+
+    public boolean addComplaint(Complaint complaint) {
+        String query = "INSERT INTO Complaints (complainant, defendant, description, status, organization) VALUES (?,?,?,?,?)";
+        try {
+            Connection conn = this.openConnection();
+            PreparedStatement pstmt = conn.prepareStatement(query);
+//            pstmt.setInt(1, complaint.getId());
+            pstmt.setString(1, complaint.getComplainant());
+            pstmt.setString(2, complaint.getDefendant());
+            pstmt.setString(3, complaint.getDescription());
+            pstmt.setString(4, complaint.getStatus());
+            pstmt.setString(5, controller.getLoggedUser().getOrganization());
+            pstmt.executeUpdate();
+            this.closeConnection(conn);
+        } catch (SQLException e) { e.printStackTrace(); return false; }
+        return true;
+    }
     //endregion
 }

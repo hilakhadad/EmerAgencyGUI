@@ -1,6 +1,7 @@
 package Controller;
 
 import Models.Model;
+import Objects.Category;
 import Objects.Complaint;
 import Objects.Event;
 import Objects.Users.Admin;
@@ -44,5 +45,21 @@ public class Controller {
     public void setPoliceAdmin(Admin policeAdmin) {
         this.policeAdmin = policeAdmin;
         policeAdmin.setController(this);
+    }
+
+    public boolean createCategory(Category category) {
+        return m_model.createCategory(category);
+    }
+
+    public boolean addComplaint(Complaint complaint) {
+        return m_model.addComplaint(complaint);
+    }
+
+//    public ObservableList<User> getAllUsers(){
+//        return m_model.showUsers();
+//    }
+
+    public ObservableList<String> getAllUsers(){
+        return m_model.showUsers();
     }
 }

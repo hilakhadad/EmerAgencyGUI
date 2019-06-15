@@ -7,39 +7,51 @@ import javafx.beans.property.StringProperty;
 public class Complaint {
 
     private String description;
-    private User complainant;
-    private User defendant;
+//    private User complainant;
+//    private User defendant;
+    private String complainant;
+    private String defendant;
     private String status;
+//    private static int idAll=10;
+//    private int id;
 
     private StringProperty sp_description;
     private StringProperty sp_complainant;
     private StringProperty sp_defendant;
     private StringProperty sp_status;
 
-    public Complaint(String description, User complainant, User defendant,String status) {
+    public Complaint( String description, String complainant, String defendant,String status) {
         this.description = description;
         this.complainant = complainant;
         this.defendant = defendant;
         this.status = status;
+//        this.id = idAll;
         sp_description= new SimpleStringProperty(description);
-        sp_complainant= new SimpleStringProperty(complainant.getUserName());
-        sp_defendant= new SimpleStringProperty(defendant.getUserName());
+        sp_complainant= new SimpleStringProperty(complainant);
+        sp_defendant= new SimpleStringProperty(defendant);
         sp_status= new SimpleStringProperty(status);
+//        idAll++;
     }
 
-    public User getComplainant() {
+
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getComplainant() {
         return complainant;
     }
 
-    public void setComplainant(User complainant) {
+    public void setComplainant(String complainant) {
         this.complainant = complainant;
     }
 
-    public User getDefendant() {
+    public String getDefendant() {
         return defendant;
     }
 
-    public void setDefendant(User defendant) {
+    public void setDefendant(String defendant) {
         this.defendant = defendant;
     }
 
