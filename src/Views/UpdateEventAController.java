@@ -2,7 +2,7 @@ package Views;
 
 import Controller.Controller;
 import Objects.Event;
-import Objects.User;
+import Objects.Users.User;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -28,7 +28,7 @@ public class UpdateEventAController {
             a = new Alert(Alert.AlertType.ERROR, "you must fill the update");
             a.show();
         } else {
-            b = addUpdate(cb_event.getValue(), txt_updateDescription.getText(), new Date(), controller.getLoggedUser());
+            b = addUpdate(cb_event.getValue().getEventID(), txt_updateDescription.getText());
 
             if (!b) {
                 a = new Alert(Alert.AlertType.ERROR, "something went wrong");
@@ -41,8 +41,8 @@ public class UpdateEventAController {
         }
     }
 
-    private boolean addUpdate(Event event, String description, Date date, User publisher){
-        return controller.addUpdate(event,description,date,publisher);
+    private boolean addUpdate(int event_id, String desc){
+        return controller.addUpdate(event_id,desc);
     }
 
     public void setChoiceBoxItems() {

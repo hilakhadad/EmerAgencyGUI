@@ -1,31 +1,22 @@
 package Objects;
 
+import Objects.Users.User;
+
 import java.util.Date;
 
 public class Update {
-
-    private int updateID;
     private Event event;
     private String description;
     private Date date;
     private User publisher;
     private Update previousUpdate;
 
-    public Update(int updateID, Event event, String description, Date date, User publisher, Update previousUpdate) {
-        this.updateID = updateID;
+    public Update( Event event, String description, Date date, User publisher, Update previousUpdate) {
         this.event = event;
         this.description = description;
         this.date = date;
         this.publisher = publisher;
         this.previousUpdate = previousUpdate;
-    }
-
-    public int getUpdateID() {
-        return updateID;
-    }
-
-    public void setUpdateID(int updateID) {
-        this.updateID = updateID;
     }
 
     public Event getEvent() {

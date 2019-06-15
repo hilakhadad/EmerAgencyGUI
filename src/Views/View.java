@@ -1,14 +1,15 @@
 package Views;
 
 import Controller.Controller;
-import Objects.User;
+import Objects.Users.Admin;
+import Objects.Users.CenterAdmin;
+import Objects.Users.RegularUser;
+import Objects.Users.User;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
@@ -31,7 +32,7 @@ public class View{
             stage.setResizable(false);
             AFAWindowController sceneController = loader.getController();
             sceneController.setController(controller);
-            controller.setLoggedUser(new User("hila","12345","Police","7","Active","h@h.com","armed force admin"));
+            controller.setLoggedUser(new Admin("hila","12345","Police"));
             stage.showAndWait();
 
         } catch (IOException e) {
@@ -50,7 +51,7 @@ public class View{
             stage.setTitle("Hello Armed Force User");
             stage.setResizable(false);
             AFUWindowController sceneController = loader.getController();
-            controller.setLoggedUser(new User("hila","12345","Police","7","Active","h@h.com","armed force"));
+            controller.setLoggedUser(new RegularUser("hila","12345","Police",7,"Active","h@h.com"));
             sceneController.setController(controller);
             stage.showAndWait();
 
@@ -71,7 +72,7 @@ public class View{
             stage.setResizable(false);
             CAWindowController sceneController = loader.getController();
             sceneController.setController(controller);
-            controller.setLoggedUser(new User("hila","12345","Police","7","Active","h@h.com","center admin"));
+            controller.setLoggedUser(new CenterAdmin("hila","12345","Police"));
             stage.showAndWait();
 
         } catch (IOException e) {

@@ -2,6 +2,7 @@ package Main;
 
 import Controller.Controller;
 import Models.Model;
+import Objects.Users.Admin;
 import Views.View;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -32,10 +33,13 @@ public class Main extends Application {
 
         Model model = new Model();
         Controller controller = new Controller();
+        Admin policeAdmin = new Admin("policeAdmin","Admin","Police");
+        policeAdmin.setModel(model);
+
+        controller.setPoliceAdmin(policeAdmin);
         model.setController(controller);
         mainView.setController(controller);
         controller.setView(mainView);
-        controller.setModel(model);
         primaryStage.show();
     }
 

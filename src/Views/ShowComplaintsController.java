@@ -2,7 +2,6 @@ package Views;
 
 import Controller.Controller;
 import Objects.Complaint;
-import Objects.User;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;

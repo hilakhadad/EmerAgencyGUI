@@ -1,8 +1,9 @@
 package Objects;
 
 
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import Objects.Users.TelephoneRecp;
+import Objects.Users.User;
+
 import java.util.Date;
 import java.util.List;
 
@@ -10,18 +11,18 @@ public class Event {
     private int eventID;
     private String title;
     private Date date;
-    private User creator;
+    private TelephoneRecp creator;
     private List<Category> categories;
-    private Update firstUpdate;
+    private Update lastUpdate;
     private String status;
 
-    public Event(int eventID, String title, Date date, User creator, List<Category> categories, Update firstUpdate, String status) {
+    public Event(int eventID, String title, Date date, TelephoneRecp creator, List<Category> categories, Update lastUpdate, String status) {
         this.eventID = eventID;
         this.title = title;
         this.date = date;
         this.creator = creator;
         this.categories = categories;
-        this.firstUpdate = firstUpdate;
+        this.lastUpdate = lastUpdate;
         this.status = status;
     }
 
@@ -54,7 +55,7 @@ public class Event {
         return creator;
     }
 
-    public void setCreator(User creator) {
+    public void setCreator(TelephoneRecp creator) {
         this.creator = creator;
     }
 
@@ -66,12 +67,12 @@ public class Event {
         this.categories = categories;
     }
 
-    public Update getFirstUpdate() {
-        return firstUpdate;
+    public Update getLastUpdate() {
+        return lastUpdate;
     }
 
-    public void setFirstUpdate(Update firstUpdate) {
-        this.firstUpdate = firstUpdate;
+    public void setLastUpdate(Update lastUpdate) {
+        this.lastUpdate = lastUpdate;
     }
 
     public String getStatus() {
@@ -85,5 +86,12 @@ public class Event {
     @Override
     public String toString() {
         return title + " " +date;
+    }
+
+    public Update addNewUpdate(String update_desc, User user){
+        Date d = new Date();
+        Update u = new Update(this,update_desc,d,user, getLastUpdate());
+        lastUpdate = u;
+        return u;
     }
 }

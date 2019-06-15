@@ -3,43 +3,46 @@ package Controller;
 import Models.Model;
 import Objects.Complaint;
 import Objects.Event;
-import Objects.User;
+import Objects.Users.Admin;
+import Objects.Users.User;
 import Views.View;
 import javafx.collections.ObservableList;
 
-import java.util.Date;
-
 public class Controller {
 
-    View m_view;
-    Model m_model;
-    User loggedUser;
+    private View m_view;
+    private User loggedUser;
+    private Admin policeAdmin;
+
+    public Controller(){
+    }
 
     public void setView(View view) {
         m_view = view;
-    }
-
-    public void setModel(Model model) {
-        m_model = model;
     }
 
     public User getLoggedUser() {
         return loggedUser;
     }
 
-    public boolean addUpdate(Event event, String description, Date date, User publishe) {
-        return m_model.addUpdate( event,description , new java.sql.Date(date.getTime()) , publishe);
-    }
-
     public void setLoggedUser(User loggedUser) {
         this.loggedUser = loggedUser;
     }
 
+    public boolean addUpdate(int event_id, String description) {
+        return policeAdmin.createNewUpdate(event_id,description);
+    }
+
     public ObservableList<Complaint> searchAllComplaints() {
-        return m_model.searchAllComplaints();
+        return policeAdmin.searchAllComplaints();
     }
 
     public ObservableList<Event> getPossibleEvents(){
-        return m_model.showPossibleEventUpdate();
+        return policeAdmin.showAllPossibleEvents();
+    }
+
+    public void setPoliceAdmin(Admin policeAdmin) {
+        this.policeAdmin = policeAdmin;
+        policeAdmin.setController(this);
     }
 }

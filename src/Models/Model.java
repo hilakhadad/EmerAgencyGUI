@@ -1,16 +1,21 @@
 package Models;
 
 import Controller.Controller;
+import Objects.Category;
 import Objects.Complaint;
 import Objects.Event;
 import Objects.Update;
-import Objects.User;
+import Objects.Users.RegularUser;
+import Objects.Users.TelephoneRecp;
+import Objects.Users.User;
 import DBConnection.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
-import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Model {
     private DBConnection driver = new DBConnection();
@@ -25,34 +30,14 @@ public class Model {
         createCategoryTable();
         createEventCategoryTable();
         createResponsibleUserTable();
+        createTelephoneRecpTable();
     }
 
     public void setController(Controller controller){
         this.controller = controller;
     }
 
-    public void insertUser(User newUser) {
-        String sql = "INSERT INTO Users(username, password,organization,rank,status,email,role) VALUES(?,?,?,?,?,?,?)";
-        try {
-            Connection conn = this.openConnection();
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, newUser.getUserName());
-            pstmt.setString(2, newUser.getPassword());
-            pstmt.setString(3, newUser.getOrganization());
-            pstmt.setString(4, newUser.getDegree());
-            pstmt.setString(5, newUser.getStatus());
-            pstmt.setString(6, newUser.getEmail());
-            pstmt.setString(7, newUser.getRole());
-            pstmt.executeUpdate();
-            this.closeConnection(conn);
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-
-    }
-
-    private void updateEventLastUpdate(String description, Event event) {
+    public void updateEventLastUpdate(String description, Event event) {
         String sql = "UPDATE Events SET lastUpdate = '" + description + "' WHERE id = " + event.getEventID() + ";";
         try {
             Connection conn = this.openConnection();
@@ -64,20 +49,124 @@ public class Model {
         }
     }
 
-    public void getUsers() {
+    public Update getLastUpdate(Event e) {
         ResultSet resultSet = null;
-        String sql = "SELECT * FROM Users";
+        String sql = "SELECT * FROM EventUpdates WHERE id='" + e.getEventID() +"' ORDER BY timeCreated DESC";
 
         try {
             Connection conn = this.openConnection();
             Statement stmt = conn.createStatement();
             resultSet = stmt.executeQuery(sql);
-            System.out.println(resultSet.getString("username"));
+            Update u = getUpdateObject(resultSet, e);
             conn.close();
+            return u;
         } catch (SQLException var6) {
             System.out.println(var6.getMessage());
         }
+        return null;
+    }
 
+    private Update getUpdateObject(ResultSet resultSet, Event e) {
+        try{
+            String desc = resultSet.getString("description");
+            Date d = resultSet.getTimestamp("timeCreated");
+            String username = resultSet.getString("username");
+            return new Update(e, desc, d, getUser(username), null);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    public RegularUser getUser(String username) {
+        ResultSet resultSet = null;
+        String sql = "SELECT * FROM Users WHERE username='" + username +"'";
+
+        try {
+            Connection conn = this.openConnection();
+            Statement stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(sql);
+            RegularUser u = getUserObject(resultSet);
+            conn.close();
+            return u;
+        } catch (SQLException var6) {
+            System.out.println(var6.getMessage());
+        }
+        return null;
+    }
+
+    private RegularUser getUserObject(ResultSet resultSet) {
+        try{
+            String username = resultSet.getString("username");
+            String password = resultSet.getString("password");
+            String organization = resultSet.getString("organization");
+            int rank = resultSet.getInt("rank");
+            String status = resultSet.getString("status");
+            String email = resultSet.getString("email");
+            return new RegularUser(username,password,organization,rank,status,email);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public TelephoneRecp getTeleRecp(String username) {
+        ResultSet resultSet = null;
+        String sql = "SELECT * FROM TelephoneRecpUsers WHERE username='" + username +"'";
+
+        try {
+            Connection conn = this.openConnection();
+            Statement stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(sql);
+            TelephoneRecp tr = getTeleRecpObject(resultSet);
+            conn.close();
+            return tr;
+        } catch (SQLException var6) {
+            System.out.println(var6.getMessage());
+        }
+        return null;
+    }
+
+    private TelephoneRecp getTeleRecpObject(ResultSet resultSet) {
+        try{
+            String username = resultSet.getString("username");
+            String password = resultSet.getString("password");
+            String organization = resultSet.getString("organization");
+            return new TelephoneRecp(username,password,organization);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Category> getCategories(int event_id) {
+        ResultSet resultSet = null;
+        String sql = "SELECT * FROM EventCategory WHERE event_id='" + event_id +"'";
+
+        try {
+            Connection conn = this.openConnection();
+            Statement stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(sql);
+            List<Category> list = getCategoriesList(resultSet);
+            conn.close();
+            return list;
+        } catch (SQLException var6) {
+            System.out.println(var6.getMessage());
+        }
+        return null;
+    }
+
+    private List<Category> getCategoriesList(ResultSet resultSet) {
+        List<Category> listC = new LinkedList<>();
+        try{
+            while(resultSet.next()) {
+                String category = resultSet.getString("category_name");
+                listC.add(new Category(category,""));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listC;
     }
 
     public ObservableList<Event> showPossibleEventUpdate(){
@@ -90,7 +179,7 @@ public class Model {
                 "WHERE username IN (SELECT username " +
                 "FROM Users " +
                 "WHERE organization ='"+controller.getLoggedUser().getOrganization()+"' " +
-                "AND rank <= " + controller.getLoggedUser().getDegree() + "))";
+                "AND rank <= " + ((RegularUser)controller.getLoggedUser()).getDegree() + "))";
         try {
             Connection conn = this.openConnection();
             Statement stmt = conn.createStatement();
@@ -114,8 +203,8 @@ public class Model {
                 String eventStatus = resultSet.getString("eventStatus");
                 String userCreated = resultSet.getString("user_created");
                 String title = resultSet.getString("title");
-                Update update = new Update(event_id,null,resultSet.getString("lastUpdate"),null,null,null);
-                Event event = new Event(event_id,title,timeCreated,new User(userCreated,null,null,null,null,null,null),null,update,eventStatus);
+                Update update = new Update(null,resultSet.getString("lastUpdate"),null,null,null);
+                Event event = new Event(event_id,title,timeCreated,getTeleRecp(userCreated),null,update,eventStatus);
                 observableList.add(event);
             }
         } catch (SQLException e) {
@@ -125,24 +214,94 @@ public class Model {
         return observableList;
     }
 
-    public boolean addUpdate(Event event, String description, Date date, User publisher){
+    public boolean addUpdate(Update update){
         try {
             String sql = "INSERT INTO EventUpdates(event_id,timeCreated,description,username) VALUES(?,?,?,?);";
             Connection conn = this.openConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, event.getEventID());
-            pstmt.setDate(2, date);
-            pstmt.setString(3, description);
-            pstmt.setString(4, publisher.getUserName());
+            pstmt.setInt(1, update.getEvent().getEventID());
+            pstmt.setObject(2, update.getDate());
+            pstmt.setString(3, update.getDescription());
+            pstmt.setString(4, update.getPublisher().getUserName());
             pstmt.executeUpdate();
             this.closeConnection(conn);
-            updateEventLastUpdate(description,event);
+            updateEventLastUpdate(update.getDescription(),update.getEvent());
             return true;
 
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
+    }
+
+
+    public ObservableList<Complaint> searchAllComplaints() {
+        String sql = "SELECT * FROM Complaints WHERE organization = '" + controller.getLoggedUser().getOrganization() + "'";
+        ResultSet resultSet;
+        ObservableList result = null;
+        try {
+            Connection conn = this.openConnection();
+            Statement stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(sql);
+            result = this.convertComplaintResultsToObservableList(resultSet);
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    private ObservableList<Complaint> convertComplaintResultsToObservableList(ResultSet resultSet) {
+        ObservableList<Complaint> observableList = FXCollections.observableArrayList();
+        try {
+            while (resultSet.next()) {
+                User complainant = getUser(resultSet.getString("complainant"));
+                User defendant = getUser(resultSet.getString("defendant"));
+                String status = resultSet.getString("status");
+                String description = resultSet.getString("description");
+                observableList.add(new Complaint(description,complainant,defendant,status));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return observableList;
+    }
+
+    public List<Event> getEventsOfOrg(String org) {
+        String sql = "SELECT * FROM Events WHERE id IN(SELECT event_id FROM ResponsibleUser WHERE username IN(SELECT username FROM Users WHERE organization= '" + org + "'))";
+        ResultSet resultSet;
+        List<Event> result = null;
+        try {
+            Connection conn = this.openConnection();
+            Statement stmt = conn.createStatement();
+            resultSet = stmt.executeQuery(sql);
+            result = this.convertToEventList(resultSet);
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    private List<Event> convertToEventList(ResultSet resultSet) {
+        LinkedList<Event> list = new LinkedList<>();
+        try {
+            while (resultSet.next()) {
+                int event_id = resultSet.getInt("id");
+                String title = resultSet.getString("title");
+                Date timeCreated = resultSet.getDate("timeCreated");
+                String eventStatus = resultSet.getString("eventStatus");
+                TelephoneRecp user = getTeleRecp(resultSet.getString("user_created"));
+                List<Category> categories = getCategories(event_id);
+                Event e = new Event(event_id,title,timeCreated,user,categories,null,eventStatus);
+                Update lastUpdate = getLastUpdate(e);
+                e.setLastUpdate(lastUpdate);
+                list.add(e);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     //region createTables
@@ -158,6 +317,22 @@ public class Model {
                 + "	role text NOT NULL\n"
                 + ");";
 
+        try (Connection conn = DriverManager.getConnection(dbUrl);
+             Statement stmt = conn.createStatement()) {
+            // create a new table
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void createTelephoneRecpTable() {
+        // SQL statement for creating a new table
+        String sql = "CREATE TABLE IF NOT EXISTS TelephoneRecpUsers (\n"
+                + "	username text PRIMARY KEY,\n"
+                + "	password text NOT NULL,\n"
+                + "	organization text NOT NULL\n"
+                + ");";
         try (Connection conn = DriverManager.getConnection(dbUrl);
              Statement stmt = conn.createStatement()) {
             // create a new table
@@ -301,36 +476,5 @@ public class Model {
 
     }
 
-    public ObservableList<Complaint> searchAllComplaints() {
-        String sql = "SELECT * FROM Complaints WHERE organization = '" + controller.getLoggedUser().getOrganization() + "'";
-        ResultSet resultSet;
-        ObservableList result = null;
-        try {
-            Connection conn = this.openConnection();
-            Statement stmt = conn.createStatement();
-            resultSet = stmt.executeQuery(sql);
-            result = this.convertComplaintResultsToObservableList(resultSet);
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    private ObservableList<Complaint> convertComplaintResultsToObservableList(ResultSet resultSet) {
-        ObservableList<Complaint> observableList = FXCollections.observableArrayList();
-        try {
-            while (resultSet.next()) {
-                User complainant = new User(resultSet.getString("complainant"), "", "", "", "", "", "");
-                User defendant = new User(resultSet.getString("defendant"), "", "", "", "", "", "");
-                String status = resultSet.getString("status");
-                String description = resultSet.getString("description");
-                observableList.add(new Complaint(description,complainant,defendant,status));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return observableList;
-    }
     //endregion
 }
