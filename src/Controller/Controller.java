@@ -52,7 +52,11 @@ public class Controller {
         return m_model.addComplaint(complaint);
     }
 
-    public ObservableList<User> getAllUsers(){
+//    public ObservableList<User> getAllUsers(){
+//        return m_model.showUsers();
+//    }
+
+    public ObservableList<String> getAllUsers(){
         return m_model.showUsers();
     }
 }

@@ -12,7 +12,7 @@ import java.util.Date;
 
 public class FilingComplaintController {
 
-    public ComboBox<User> cb_users;
+    public ComboBox<String> cb_users;
     public TextArea txt_complaintDescription;
     Controller controller;
 
@@ -29,8 +29,8 @@ public class FilingComplaintController {
             alert = new Alert(Alert.AlertType.ERROR, "you must fill the complaint details");
             alert.show();
         } else {
-            User defendant = new User(cb_users.getValue().toString());
-            User complaint = controller.getLoggedUser();
+            String defendant = cb_users.getValue();
+            String complaint = controller.getLoggedUser().getUserName();
             Complaint newComplaint = new Complaint(txt_complaintDescription.getText(), complaint, defendant, "waiting");
             if (!addComplaint(newComplaint)){
                 alert = new Alert(Alert.AlertType.ERROR, "something went wrong");
@@ -49,22 +49,22 @@ public class FilingComplaintController {
 
     public void setChoiceBoxItems() {
         cb_users.setItems(controller.getAllUsers());
-        cb_users.setCellFactory(new Callback<ListView<User>, ListCell<User>>() {
-            @Override
-            public ListCell<User> call(ListView<User> param) {
-                final ListCell<User> cell = new ListCell<User>(){
-                    @Override
-                    protected void updateItem(User u, boolean bln) {
-                        super.updateItem(u, bln);
-                        if(u != null){
-                            setText(u.getUserName());
-                        }else{
-                            setText(null);
-                        }
-                    }
-                };
-                return cell;
-            }
-        });
+//        cb_users.setCellFactory(new Callback<ListView<User>, ListCell<User>>() {
+//            @Override
+//            public ListCell<User> call(ListView<User> param) {
+//                final ListCell<User> cell = new ListCell<User>(){
+//                    @Override
+//                    protected void updateItem(User u, boolean bln) {
+//                        super.updateItem(u, bln);
+//                        if(u != null){
+//                            setText(u.getUserName());
+//                        }else{
+//                            setText(null);
+//                        }
+//                    }
+//                };
+//                return cell;
+//            }
+//        });
     }
 }

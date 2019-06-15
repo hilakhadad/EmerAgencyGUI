@@ -100,10 +100,10 @@ public class Model {
         return result;
     }
 
-    public ObservableList<User> showUsers(){
+    public ObservableList<String> showUsers(){
         ResultSet resultSet;
         ObservableList result = null;
-        String sql = "SELECT * " +
+        String sql = "SELECT username " +
                 "FROM Users";
 //                +"WHERE role = 'armed force man'";
         try {
@@ -140,14 +140,12 @@ public class Model {
     }
 
     private ObservableList convertUsersResultsToObservableList(ResultSet resultSet) {
-        ObservableList<User> observableList = FXCollections.observableArrayList();
+        ObservableList<String> observableList = FXCollections.observableArrayList();
 
         try {
             while (resultSet.next()) {
                 String userName = resultSet.getString("username");
-                String role = resultSet.getString("role");
-                User user = new User(userName, "", "police", "", "", "", role);
-                observableList.add(user);
+                observableList.add(userName);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -155,6 +153,23 @@ public class Model {
 
         return observableList;
     }
+
+//    private ObservableList convertUsersResultsToObservableList(ResultSet resultSet) {
+//        ObservableList<User> observableList = FXCollections.observableArrayList();
+//
+//        try {
+//            while (resultSet.next()) {
+//                String userName = resultSet.getString("username");
+//                String role = resultSet.getString("role");
+//                User user = new User(userName, "", "police", "", "", "", role);
+//                observableList.add(user);
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return observableList;
+//    }
 
     public boolean addUpdate(Event event, String description, Date date, User publisher){
         try {
@@ -352,8 +367,8 @@ public class Model {
         ObservableList<Complaint> observableList = FXCollections.observableArrayList();
         try {
             while (resultSet.next()) {
-                User complainant = new User(resultSet.getString("complainant"), "", "", "", "", "", "");
-                User defendant = new User(resultSet.getString("defendant"), "", "", "", "", "", "");
+                String complainant = resultSet.getString("complainant");
+                String defendant = resultSet.getString("defendant");
                 String status = resultSet.getString("status");
                 String description = resultSet.getString("description");
                 observableList.add(new Complaint(description,complainant,defendant,status));
@@ -396,7 +411,19 @@ public class Model {
     }
 
     public boolean addComplaint(Complaint complaint) {
-        // fill
+        String query = "INSERT INTO Complaints (complainant, defendant, description, status, organization) VALUES (?,?,?,?,?)";
+        try {
+            Connection conn = this.openConnection();
+            PreparedStatement pstmt = conn.prepareStatement(query);
+//            pstmt.setInt(1, complaint.getId());
+            pstmt.setString(1, complaint.getComplainant());
+            pstmt.setString(2, complaint.getDefendant());
+            pstmt.setString(3, complaint.getDescription());
+            pstmt.setString(4, complaint.getStatus());
+            pstmt.setString(5, controller.getLoggedUser().getOrganization());
+            pstmt.executeUpdate();
+            this.closeConnection(conn);
+        } catch (SQLException e) { e.printStackTrace(); return false; }
         return true;
     }
     //endregion
