@@ -1,10 +1,10 @@
 # EmerAgencyGUI
 Created by Alon Zolfi - 205846074
            Hila Kesem Hadad - 204706006
-           Loren Tsaalon - 315470344
-           Sapir Ratzob - 203386438
+           Loren Tsahalon - 315470344
+           Sapir Ratzon - 203386438
 
-We decide to implement are:
+We decide to implement the following use-cases:
 1. Create New Category - insert category name and description.
 2. Create new Update to event - choose the event and add an update.
 3. Filing complaint - choose the user you want to complaint on.
