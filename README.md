@@ -11,3 +11,5 @@ We decide to implement the following use-cases:
 
 You can connect as armed force user and execute the actions 2,3 or you can connect as center admin and execute the action 1.
 You also can connect as armed force admin in order to see all the exist complaints.
+
+The current implementation refer to the police organization so the armed force user is a police man and the armed force admin is a police admin. However, the system is usable also for MDA orgamization and the fire department.
