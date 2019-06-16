@@ -1,17 +1,23 @@
 package Objects.Users;
 
-import Models.Model;
+import Model.Model;
 import Objects.Category;
-import Objects.Complaint;
 import javafx.collections.ObservableList;
 
 import java.util.List;
 
 public class CenterAdmin extends Admin {
+    private static CenterAdmin centerAdmin;
     private List<Category> categoryList;
 
-    public CenterAdmin(String userName, String password, String organization) {
+    private CenterAdmin(String userName, String password, String organization) {
         super(userName, password, organization);
+    }
+
+    public static CenterAdmin getInstance(){
+        if(centerAdmin==null)
+            centerAdmin= new CenterAdmin("centerAdmin", "1234","Center");
+        return centerAdmin;
     }
 
     @Override
@@ -19,7 +25,6 @@ public class CenterAdmin extends Admin {
         this.m_model = model;
         categoryList = m_model.getAllCategories();
     }
-
 
     public boolean createNewCategory(String category_name, String category_desc){
         boolean c = categoryInList(category_name);

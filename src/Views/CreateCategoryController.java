@@ -13,7 +13,7 @@ public class CreateCategoryController {
 
     public TextArea txt_categoryName;
     public TextArea txt_categoryDescription;
-    Controller controller;
+    private Controller controller;
 
     public void setController(Controller c){
         controller=c;
@@ -29,10 +29,10 @@ public class CreateCategoryController {
             alert.show();
         } else {
             if (!createCategory(txt_categoryName.getText(), txt_categoryDescription.getText())) {
-                alert = new Alert(Alert.AlertType.ERROR, "the category you try to add is already exist");
+                alert = new Alert(Alert.AlertType.ERROR, "the category you tried to add already exists");
                 alert.show();
             } else {
-                alert = new Alert(Alert.AlertType.CONFIRMATION, "category added successfully");
+                alert = new Alert(Alert.AlertType.INFORMATION, "category added successfully");
                 alert.show();
                 ((Stage)txt_categoryDescription.getScene().getWindow()).close();
             }

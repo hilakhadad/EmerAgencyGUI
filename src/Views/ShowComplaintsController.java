@@ -11,13 +11,7 @@ public class ShowComplaintsController {
     public TableView<Complaint> tv_ComplaintsTableView;
     public TableColumn<Complaint,String> tc_defendant,tc_complainant,tc_description,tc_status;
 
-    Controller controller;
-
-    public void setController(Controller c){
-        controller=c;
-    }
-
-    public void showResults(ObservableList<Complaint> searchResults) {
+    void showResults(ObservableList<Complaint> searchResults) {
         if (searchResults != null && searchResults.size()>0) {
             tc_status.setCellValueFactory(cellData -> cellData.getValue().getSP_statusProperty());
             tc_defendant.setCellValueFactory(cellData -> cellData.getValue().getSP_defendantProperty());

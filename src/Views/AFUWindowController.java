@@ -10,14 +10,13 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class AFUWindowController {
-    Controller controller;
+    private Controller controller;
 
     public void setController(Controller c){
         controller=c;
     }
 
-
-    public void handelUpdateEvent(ActionEvent actionEvent) {
+    public void handelUpdateEvent() {
         FXMLLoader loader = new FXMLLoader();
         try {
             Parent root = loader.load(this.getClass().getClassLoader().getResource("UpdateEventWindow.fxml").openStream());
@@ -30,14 +29,11 @@ public class AFUWindowController {
             sceneController.setController(controller);
             sceneController.setChoiceBoxItems();
             stage.showAndWait();
-
         } catch (IOException e) {
-            e.getCause();
-            e.printStackTrace();
         }
     }
 
-    public void handelFilingComplaint(ActionEvent actionEvent) {
+    public void handelFilingComplaint() {
         FXMLLoader loader = new FXMLLoader();
         try {
             Parent root = loader.load(this.getClass().getClassLoader().getResource("FilingComplaintWindow.fxml").openStream());
@@ -52,8 +48,6 @@ public class AFUWindowController {
             stage.showAndWait();
 
         } catch (IOException e) {
-            e.getCause();
-            e.printStackTrace();
         }
     }
 }

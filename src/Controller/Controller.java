@@ -1,7 +1,5 @@
 package Controller;
 
-import Models.Model;
-import Objects.Category;
 import Objects.Complaint;
 import Objects.Event;
 import Objects.Users.Admin;
@@ -68,7 +66,7 @@ public class Controller {
     }
 
     public boolean addComplaint(String username_def, String desc) {
-        return policeAdmin.addComplaint(loggedUser.getUserName(), username_def,desc);
+        return policeAdmin.CreateNewComplaint(loggedUser.getUserName(), username_def,desc);
     }
 
 //    public ObservableList<User> getAllUsers(){

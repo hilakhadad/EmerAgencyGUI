@@ -3,8 +3,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="79.0" prefWidth="392.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="Views.CAWindowController">
+<AnchorPane prefHeight="79.0" prefWidth="392.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Views.CAWindowController">
    <children>
-      <Button layoutX="143.0" layoutY="27.0" onAction="#handelCreateCategory" style="-fx-background-color: #f2dd68" mnemonicParsing="false" prefHeight="32.0" prefWidth="121.0" text="Create category" />
+      <Button layoutX="113.0" layoutY="24.0" mnemonicParsing="false" onAction="#handelCreateCategory" prefHeight="32.0" prefWidth="167.0" style="-fx-background-color: #f2dd68" text="Create category" />
    </children>
 </AnchorPane>

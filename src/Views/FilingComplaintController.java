@@ -28,10 +28,10 @@ public class FilingComplaintController {
         } else {
             String defendant = cb_users.getValue().getUserName();
             if (!addComplaint(defendant,txt_complaintDescription.getText())){
-                alert = new Alert(Alert.AlertType.ERROR, "Category already exists");
+                alert = new Alert(Alert.AlertType.ERROR, "something went wrong, please try again");
                 alert.show();
             } else {
-                alert = new Alert(Alert.AlertType.CONFIRMATION, "your complaint added successfully and waiting to confirmation");
+                alert = new Alert(Alert.AlertType.INFORMATION, "your complaint was added successfully and is waiting for confirmation");
                 alert.show();
                 ((Stage)txt_complaintDescription.getScene().getWindow()).close();
             }
@@ -42,10 +42,10 @@ public class FilingComplaintController {
         return controller.addComplaint(username_def, desc);
     }
 
-    public void setChoiceBoxItems() {
+    void setChoiceBoxItems() {
         ObservableList<RegularUser> list = controller.getAllUsers();
-        list = removeUserFromList(list);
-        cb_users.setItems(list);
+        ObservableList<RegularUser> fixedList = removeUserFromList(list);
+        cb_users.setItems(fixedList);
         cb_users.setCellFactory(new Callback<ListView<RegularUser>, ListCell<RegularUser>>() {
            @Override
            public ListCell<RegularUser> call(ListView<RegularUser> param) {

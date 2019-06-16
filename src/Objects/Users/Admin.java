@@ -1,7 +1,7 @@
 package Objects.Users;
 
 import Controller.Controller;
-import Models.Model;
+import Model.Model;
 import Objects.Complaint;
 import Objects.Event;
 import Objects.Update;
@@ -40,11 +40,15 @@ public class Admin extends User {
     }
 
     public boolean createNewUpdate(int event_id, String update_desc){
-        Event event = getEvent(event_id);
-        Update u = event.addNewUpdate(update_desc,controller.getLoggedUser());
-        m_model.addUpdate(u);
-        m_model.updateEventLastUpdate(update_desc,event);
-        return true;
+        try {
+            Event event = getEvent(event_id);
+            Update u = event.addNewUpdate(update_desc, controller.getLoggedUser());
+            m_model.addUpdate(u);
+            m_model.updateEventLastUpdate(update_desc, event);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
 
     private Event getEvent(int event_id) {
@@ -55,13 +59,17 @@ public class Admin extends User {
         return null;
     }
 
-    public boolean addComplaint(String un_comp, String un_def, String desc) {
-        RegularUser complainant = getUser(un_comp);
-        RegularUser defendant = getUser(un_def);
-        Complaint c = new Complaint(desc,complainant,defendant,"waiting");
-        complaints.add(c);
-        m_model.addComplaint(c);
-        return true;
+    public boolean CreateNewComplaint(String un_comp, String un_def, String desc) {
+        try {
+            RegularUser complainant = getUser(un_comp);
+            RegularUser defendant = getUser(un_def);
+            Complaint c = new Complaint(desc, complainant, defendant, "waiting");
+            complaints.add(c);
+            m_model.addComplaint(c);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
 
     private RegularUser getUser(String username) {

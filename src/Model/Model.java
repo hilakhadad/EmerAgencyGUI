@@ -1,4 +1,4 @@
-package Models;
+package Model;
 
 import Controller.Controller;
 import Objects.Category;
@@ -35,6 +35,7 @@ public class Model {
     public void setController(Controller controller){
         this.controller = controller;
     }
+
 
     public void updateEventLastUpdate(String description, Event event) {
         String sql = "UPDATE Events SET lastUpdate = '" + description + "' WHERE id = " + event.getEventID() + ";";
@@ -178,7 +179,8 @@ public class Model {
                 "WHERE username IN (SELECT username " +
                 "FROM Users " +
                 "WHERE organization ='"+controller.getLoggedUser().getOrganization()+"' " +
-                "AND rank <= " + ((RegularUser)controller.getLoggedUser()).getDegree() + "))";
+                "AND rank <= " + ((RegularUser)controller.getLoggedUser()).getDegree() + " " +
+                "AND eventStatus ='open'))";
         try {
             Connection conn = this.openConnection();
             Statement stmt = conn.createStatement();
@@ -250,6 +252,8 @@ public class Model {
         return observableList;
     }
 
+
+    //region Create New Update
     public boolean addUpdate(Update update){
         try {
             String sql = "INSERT INTO EventUpdates(event_id,timeCreated,description,username) VALUES(?,?,?,?);";
@@ -261,7 +265,6 @@ public class Model {
             pstmt.setString(4, update.getPublisher().getUserName());
             pstmt.executeUpdate();
             this.closeConnection(conn);
-            updateEventLastUpdate(update.getDescription(),update.getEvent());
             return true;
 
         } catch (SQLException e) {
@@ -269,8 +272,7 @@ public class Model {
             return false;
         }
     }
-
-
+    //endregion
 
     public List<Event> getEventsOfOrg(String org) {
         String sql = "SELECT * FROM Events WHERE id IN(SELECT event_id FROM ResponsibleUser WHERE username IN(SELECT username FROM Users WHERE organization= '" + org + "'))";
@@ -287,6 +289,13 @@ public class Model {
         }
         return result;
     }
+
+
+
+
+
+
+
 
     private List<Event> convertToEventList(ResultSet resultSet) {
         LinkedList<Event> list = new LinkedList<>();

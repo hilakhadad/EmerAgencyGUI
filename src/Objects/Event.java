@@ -85,7 +85,7 @@ public class Event {
 
     @Override
     public String toString() {
-        return title + " " +date;
+        return title + ", " + date + ", Last Update: " + lastUpdate.getDescription();
     }
 
     public Update addNewUpdate(String update_desc, User user){

@@ -1,11 +1,7 @@
 package Views;
 
 import Controller.Controller;
-import Objects.Users.Admin;
-import Objects.Users.CenterAdmin;
 import Objects.Users.RegularUser;
-import Objects.Users.User;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,13 +11,13 @@ import java.io.IOException;
 
 public class View{
 
-    Controller controller;
+    private Controller controller;
 
     public void setController(Controller c){
         controller=c;
     }
 
-    public void handleLogInAsAFA(ActionEvent actionEvent) {
+    public void handleLogInAsAFA() {
         FXMLLoader loader = new FXMLLoader();
         try {
             Parent root = loader.load(this.getClass().getClassLoader().getResource("AFAWindow.fxml").openStream());
@@ -41,7 +37,7 @@ public class View{
         }
     }
 
-    public void hendelLogInAsAFU(ActionEvent actionEvent) {
+    public void handelLogInAsAFU() {
         FXMLLoader loader = new FXMLLoader();
         try {
             Parent root = loader.load(this.getClass().getClassLoader().getResource("AFUWindow.fxml").openStream());
@@ -61,7 +57,7 @@ public class View{
         }
     }
 
-    public void hendelLogInAsCA(ActionEvent actionEvent) {
+    public void handelLogInAsCA() {
         FXMLLoader loader = new FXMLLoader();
         try {
             Parent root = loader.load(this.getClass().getClassLoader().getResource("CAWindow.fxml").openStream());

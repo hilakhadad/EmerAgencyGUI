@@ -1,7 +1,7 @@
 package Main;
 
 import Controller.Controller;
-import Models.Model;
+import Model.Model;
 import Objects.Users.Admin;
 import Objects.Users.CenterAdmin;
 import Views.View;
@@ -22,7 +22,6 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader();
         Parent root = loader.load(getClass().getClassLoader().getResource("LogInWindow.fxml").openStream());
         View mainView = loader.getController();
-
         primaryStage.setTitle("Emer-Agency");
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);
@@ -36,7 +35,7 @@ public class Main extends Application {
         Model model = new Model();
         Controller controller = new Controller();
         Admin policeAdmin = new Admin("policeAdmin","1234","Police");
-        CenterAdmin centerAdmin = new CenterAdmin("centerAdmin", "1234","Center");
+        CenterAdmin centerAdmin = CenterAdmin.getInstance();
         controller.setPoliceAdmin(policeAdmin);
         controller.setCenterAdmin(centerAdmin);
         model.setController(controller);

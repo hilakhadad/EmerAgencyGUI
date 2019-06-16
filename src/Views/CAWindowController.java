@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class CAWindowController {
 
-    Controller controller;
+    private Controller controller;
 
     public void setController(Controller c){
         controller=c;
@@ -29,7 +29,6 @@ public class CAWindowController {
             CreateCategoryController sceneController = loader.getController();
             sceneController.setController(controller);
             stage.showAndWait();
-
         } catch (IOException e) {
             e.getCause();
             e.printStackTrace();

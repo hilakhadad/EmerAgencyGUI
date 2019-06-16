@@ -12,13 +12,13 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class AFAWindowController {
-    Controller controller;
+    private Controller controller;
 
     public void setController(Controller c){
         controller=c;
     }
 
-    public void hendleShowComplaints(){
+    public void handleShowComplaints(){
         FXMLLoader loader = new FXMLLoader();
         try {
             Parent root = loader.load(this.getClass().getClassLoader().getResource("ShowComplaintsWindow.fxml").openStream());
@@ -28,7 +28,6 @@ public class AFAWindowController {
             stage.setTitle("Complaints");
             stage.setResizable(false);
             ShowComplaintsController sceneController = loader.getController();
-            sceneController.setController(controller);
             sceneController.showResults(fillTheComplaints());
             stage.showAndWait();
         } catch (IOException e) {
@@ -38,9 +37,9 @@ public class AFAWindowController {
     }
 
     private ObservableList<Complaint> fillTheComplaints(){
-        ObservableList l = controller.searchAllComplaints();
+        ObservableList<Complaint> l = controller.searchAllComplaints();
         if(l== null || l.size()==0){
-            Alert e = new Alert(Alert.AlertType.ERROR,"no results for this destination");
+            Alert e = new Alert(Alert.AlertType.ERROR,"No Complaints");
             e.show();
         }
         return l;

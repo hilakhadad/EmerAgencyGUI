@@ -12,7 +12,7 @@ import java.util.Date;
 public class UpdateEventAController {
     public ComboBox<Event> cb_event;
     public TextArea txt_updateDescription;
-    Controller controller;
+    private Controller controller;
 
     public void setController(Controller c){
         controller=c;
@@ -31,10 +31,10 @@ public class UpdateEventAController {
             b = addUpdate(cb_event.getValue().getEventID(), txt_updateDescription.getText());
 
             if (!b) {
-                a = new Alert(Alert.AlertType.ERROR, "something went wrong");
+                a = new Alert(Alert.AlertType.ERROR, "something went wrong, please try again");
                 a.show();
             } else {
-                a = new Alert(Alert.AlertType.CONFIRMATION, "your update added to the event\n do you want to send anther update?");
+                a = new Alert(Alert.AlertType.INFORMATION, "your update was added to the event\n");
                 a.show();
                 ((Stage)txt_updateDescription.getScene().getWindow()).close();
             }
@@ -45,7 +45,7 @@ public class UpdateEventAController {
         return controller.addUpdate(event_id,desc);
     }
 
-    public void setChoiceBoxItems() {
+    void setChoiceBoxItems() {
         cb_event.setItems(controller.getPossibleEvents());
         cb_event.setCellFactory(new Callback<ListView<Event>, ListCell<Event>>() {
             @Override
